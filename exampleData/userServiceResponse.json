@@ -1,0 +1,29 @@
+{
+  "friends" : {
+    "8aa496dc-d03f-11e7-abc4-cec278b6b50a": {
+      "name": "bernd",
+      "debts": {
+        "positive": {
+          "1": {
+            "reason": "whatever",
+            "amount": 1
+          },
+          "2": {
+            "reason": "whatever",
+            "amount": 1
+          }
+        },
+        "negative": {
+          "1": {
+            "reason": "whatever",
+            "amount": 1
+          },
+          "2": {
+            "reason": "whatever",
+            "amount": 10
+          }
+        }
+      }
+    }
+  }
+}
