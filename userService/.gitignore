@@ -2,3 +2,7 @@
 .idea/
 *.iml
 /target/
+.settings
+dependency-reduced-pom.xml
+.classpath
+
