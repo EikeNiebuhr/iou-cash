@@ -2,15 +2,11 @@ package iou.models;
 
 import java.util.ArrayList;
 
-public class User
+public class User extends Person
 {
 	private String username, password;
-	private String firstName, lastName;
-	private String mailAddress;
-	private String street;
-	private Integer postcode;
-	private String location;
-	private ArrayList<User> friends = new ArrayList<User>();
+	private ArrayList<Person> friends = new ArrayList<Person>();
+	private ArrayList<Debt> debts = new ArrayList<Debt>();
 	
 	public User(String username, String password, String firstName, String lastName)
 	{
@@ -21,71 +17,39 @@ public class User
 		this.lastName = lastName;
 	}
 	
+	public User(Guest guest, String username, String password)
+	{
+		assert username != null && username != "" && password != null && password != "";
+		this.username = username;
+		this.password = password;
+		this.firstName = guest.firstName;
+		this.lastName = guest.lastName;
+		this.mailAddress = guest.mailAddress;
+		this.street = guest.mailAddress;
+		this.postcode = guest.postcode;
+		this.location = guest.location;
+	}
+	
 	public String getUsername()
 	{
 		return username;
 	}
 	
-	public String getFirstName()
-	{
-		return firstName;
-	}
-	
-	public String getLastName()
-	{
-		return lastName;
-	}
-	
-	public String getMailAddress()
-	{
-		return mailAddress;
-	}
-	
-	public void setMailAddress(String mailAddress)
-	{
-		this.mailAddress = mailAddress;
-	}
-
-	public String getStreet()
-	{
-		return street;
-	}
-
-	public void setStreet(String street)
-	{
-		this.street = street;
-	}
-
-	public int getPostcode()
-	{
-		return postcode;
-	}
-
-	public void setPostcode(int postcode)
-	{
-		this.postcode = postcode;
-	}
-
-	public String getLocation()
-	{
-		return location;
-	}
-
-	public void setLocation(String location)
-	{
-		this.location = location;
-	}
-
-	public void addFriend(User friend)
+	public void addFriend(Person friend)
 	{
 		assert friend != null && friend != this && !friends.contains(friend);
 		friends.add(friend);
 	}
 
-	public void deleteFriend(User friend)
+	public void deleteFriend(Person friend)
 	{
 		assert friends.contains(friend);
 		friends.remove(friend);
+	}
+	
+	public ArrayList<Debt> getDebts()
+	{
+		return debts;
 	}
 	
 	public boolean changePassword(String oldPassword, String newPassword)

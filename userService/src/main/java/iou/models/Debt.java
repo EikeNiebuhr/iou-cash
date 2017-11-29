@@ -4,16 +4,15 @@ import java.util.Date;
 
 public class Debt
 {
-	private User lender, borrower;
+	private Person friend;
 	private double amount;
 	private Date date;
 	private boolean isPayed = false;
 	
-	public Debt(User lender, User borrower, double amount)
+	public Debt(Person friend, double amount)
 	{
-		assert lender != null && borrower != null && amount > 0;
-		this.lender = lender;
-		this.borrower = borrower;
+		assert friend != null;
+		this.friend = friend;
 		this.amount = amount;
 		date = new Date(System.currentTimeMillis());
 	}
@@ -23,14 +22,9 @@ public class Debt
 		isPayed = true;
 	}
 	
-	public User getLender()
+	public Person getFriend()
 	{
-		return lender;
-	}
-	
-	public User getBorrower()
-	{
-		return borrower;
+		return friend;
 	}
 	
 	public double getAmount()
