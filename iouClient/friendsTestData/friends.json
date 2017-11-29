@@ -1,0 +1,42 @@
+{
+  "friends": [
+    {
+      "id": 1,
+      "name": "John",
+      "totalpositive": 100,
+      "totalnegative": 200
+    },
+    {
+      "id": 2,
+      "name": "Pete",
+      "totalpositive": 100,
+      "totalnegative": 200
+    },
+    {
+      "id": 3,
+      "name": "Manuell",
+      "totalpositive": 100,
+      "totalnegative": 200
+    },
+    {
+      "id": 4,
+      "name": "Paul",
+      "totalpositive": 100,
+      "totalnegative": 200
+    },
+    {
+      "id": 5,
+      "name": "Jane",
+      "totalpositive": 10000,
+      "totalnegative": 0
+    },
+    {
+      "name": "test",
+      "id": 6
+    },
+    {
+      "name": "john smithhhz",
+      "id": 7
+    }
+  ]
+}

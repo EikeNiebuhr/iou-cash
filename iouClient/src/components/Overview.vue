@@ -1,47 +1,24 @@
 <template>
 <div id="Overview">
-    <section class="hero">
-        <h1 class="title">Overview</h1>
-  <p class="notification">Current status:
-<notification v-bind:notifications="notifications"></notification>                    
-  </p>
-    </section>
-    <section class="section">
-<div class="tile is-ancestor">
-  <div class="tile is-parent">
-    <article class="tile is-child box" v-for="friend in friends">
-      <p class="title">{{ friend.name }}</p>
-      <p class="asd">{{ friend.totalpositive }}</p>
-      <p class="negative">{{ friend.totalnegativ }}</p>
-    </article>
-  </div>
-  <div class="tile is-parent">
-    <article class="tile is-child box">
-      <p class="title">Two</p>
-      <div class="has-text-centered">
-      <p class="positive">1000</p>
-      <p class="negative">100</p>
+  <section class="hero">
+    <h1 class="title">Overview</h1>
+    <p class="notification">System status:
+      <notification v-bind:notifications="notifications" class="notification"></notification>                    
+    </p>
+  </section>
+  <section class="section">
+    <div class="tile is-ancestor">
+      <div class="tile is-parent" v-for="friend in filteredSearch" :key="friend.id">
+          <article class="tile is-child box">
+            <p class="title">{{ friend.name }}</p>
+            <p class="positive">{{ friend.totalpositive }} €</p>
+            <p class="negative">{{ friend.totalnegative }} €</p>
+          </article>
       </div>
-    </article>
-  </div>
-  <div class="tile is-parent">
-    <article class="tile is-child box">
-      <p class="title">Three</p>
-      <p class="subtitle">Subtitle</p>
-    </article>
-  </div>
-  <div class="tile is-parent">
-    <article class="tile is-child box">
-      <p class="title">Four</p>
-      <p class="subtitle">Subtitle</p>
-    </article>
-  </div>
-      </div>
-</section>
-<button id="add-friend" v-on:click="show" class="button is-info" aria-hidden="true"><i class="fa fa-user-plus" aria-hidden="true"> Friend</i></button>
-      </container>
-<createFriend></createFriend>
-</section>
+    </div>
+  </section>
+  <button id="add-friend" @click="show" class="button is-info" aria-hidden="true"><i class="fa fa-user-plus" aria-hidden="true"> Friend</i></button>
+  <createFriend></createFriend>
 </div>
 </template>
 
@@ -49,56 +26,54 @@
 import Notification from './Notifications'
 import CreateFriend from './CreateFriend'
 import axios from 'axios'
+import search from '../mixins/search'
 export default {
   data () {
     return {
-      friends: [],
-      productSearch: '',
-      notifications: []
+      friend: {},
+      notifications: [],
+      friends: []
     }
   },
   created: function () {
-    this.fetchProductData()
+    this.fetchFriendsData()
   },
   methods: {
-    fetchProductData: function () {
-      axios.get('localhst').then(
+    fetchFriendsData: function () {
+      axios.get('http://localhost:3000/friends').then(
         response => {
-          this.friends = response.body
-          this.originalFriends = this.friends
+          this.$root.friends = response.data
+          this.notifications.push({
+            type: 'success',
+            message: 'All good! Last succesful update at ' + new Date().toLocaleTimeString()
+          })
+          console.log(response)
         }).catch(e => {
           this.notifications.push(e)
+          console.log(e)
         })
-    },
-    addFriend: function () {
-      axios.post('/friend', {
-        name: 'Fred'
-      })
-  .then(function (response) {
-    this.notifications.push(response)
-    console.log(response)
-  })
-  .catch(function (error) {
-    this.notifications.push(error)
-    console.log(error)
-  })
     },
     show: function () {
       this.$modal.show('createFriend')
     }
   },
   components: {
-    'notification': Notification,
-    'createFriend': CreateFriend
-  }
+    notification: Notification,
+    createFriend: CreateFriend
+  },
+  mixins: [
+    search
+  ]
 }
 </script>
 <style scoped>
 .negative {
- background-color: #FF3860
+ background-color: #FF3860;
+ text-align: center;
 }
 
 .positive {
-  background-color: #42b983
+  background-color: #42b983;
+  text-align: center;
 }
 </style>

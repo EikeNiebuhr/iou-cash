@@ -2,18 +2,21 @@
 <div id="Transactions">
     <section class="hero">
         <h1 class="title">Transactions</h1>
-  <p class="notification">Current status:
+  <p class="notification">System status:
 <notification v-bind:notifications="notifications"></notification>                    
   </p>
     </section>
     <section class="section">
-  <label class="label">Name</label>
-  <div class="control has-icons-left">
-    <input class="input is-success" type="text" placeholder="Text input" id="friend_name" required>
-    <span class="icon is-small is-left">
-      <i class="fa fa-user"></i>
-    </span>
+<div class="field">
+  <label class="label">Friend</label>
+  <div class="control">
+    <div class="select">
+      <select v-model="selected">
+        <option v-for="friend in friends" :key="friend">{{friend.name}}</option>
+      </select>
+    </div>
   </div>
+</div>
     <label class="label">Amount</label>
   <div class="control has-icons-left">
     <input class="input is-success" type="text" placeholder="Text input" id="friend_name" required>
@@ -22,22 +25,20 @@
     </span>
   </div>
 </section>
-<button id="add-friend" v-on:click="show" class="button is-info" aria-hidden="true"><i class="fa fa-user-plus" aria-hidden="true"> Send Moneyz</i></button>
-      </container>
+<button id="send-money" v-on:click="sendMoney" class="button is-info" aria-hidden="true"><i class="fa fa-user-plus" aria-hidden="true"> Send Moneyz</i></button>
 </section>
 </div>
 </template>
 
 <script>
 import Notification from './Notifications'
-import CreateFriend from './CreateFriend'
 import axios from 'axios'
 export default {
   data () {
     return {
       friends: [],
-      productSearch: '',
-      notifications: []
+      notifications: [],
+      selected: ['me', 'you', 'we']
     }
   },
   created: function () {
@@ -45,34 +46,34 @@ export default {
   },
   methods: {
     fetchProductData: function () {
-      axios.get('localhst').then(
+      axios.get('http://localhost:3000/friends').then(
         response => {
-          this.friends = response.body
+          this.$root.friends = response.data
           this.originalFriends = this.friends
         }).catch(e => {
           this.notifications.push(e)
         })
     },
-    addFriend: function () {
-      axios.post('/friend', {
+    sendMoney: function () {
+      axios.post('/addDebt', this.friend, {
         name: 'Fred'
-      })
+      },
+        {headers: {
+          'Content-Type': 'application/json'
+        }}
+      )
   .then(function (response) {
-    this.notifications.push(response)
+    this.notifications.push(response.data)
     console.log(response)
   })
   .catch(function (error) {
     this.notifications.push(error)
     console.log(error)
   })
-    },
-    show: function () {
-      this.$modal.show('createFriend')
     }
   },
   components: {
-    'notification': Notification,
-    'createFriend': CreateFriend
+    'notification': Notification
   }
 }
 </script>

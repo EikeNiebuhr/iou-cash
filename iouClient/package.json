@@ -1,7 +1,7 @@
 {
   "name": "iou",
   "version": "1.0.0",
-  "description": "lala",
+  "description": "simple IOU App",
   "author": "Argh <tammepoeg@gmail.com>",
   "private": true,
   "scripts": {

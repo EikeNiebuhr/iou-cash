@@ -1,6 +1,6 @@
 <template>
     <div id="notifications">
-        <div v-for="notification in notifications" :class="getNotificationClass(notification)">
+        <div v-for="notification in notifications" :key="notification.type">
             {{ notification.message }}
         </div>
     </div>
@@ -9,7 +9,8 @@
 <script>
 export default {
   data () {
-    return {}
+    return {
+    }
   },
   methods: {
     getNotificationClass: function (notification) {
