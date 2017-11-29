@@ -2,3 +2,7 @@ logging:
   level: INFO
   loggers:
     iou: DEBUG
+server:
+  applicationConnectors:
+  - type: http
+    port: 50001

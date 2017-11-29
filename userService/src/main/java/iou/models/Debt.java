@@ -8,6 +8,11 @@ public class Debt
 	private double amount;
 	private Date date;
 	private boolean isPayed = false;
+
+	public Debt()
+	{
+
+	}
 	
 	public Debt(Person friend, double amount)
 	{
