@@ -1,5 +1,8 @@
 package iou.models;
 
+import javax.persistence.DiscriminatorValue;
+
+@DiscriminatorValue("GUEST")
 public class Guest extends Person
 {
 	public Guest(String firstName, String lastName)

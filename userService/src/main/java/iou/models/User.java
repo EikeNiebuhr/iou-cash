@@ -1,13 +1,23 @@
 package iou.models;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User extends Person
+@DiscriminatorValue("USER")
+public class User extends Person implements Serializable
 {
-	private String username, password;
+	@Column(name="username")
+	private String username;
+	@Column(name="password")
+	private String password;
+	@OneToMany(mappedBy="Person")
 	private ArrayList<Person> friends = new ArrayList<Person>();
 	private ArrayList<Debt> debts = new ArrayList<Debt>();
-	
+	private ArrayList<Debt> assets = new ArrayList<Debt>();
+
 	public User(String username, String password, String firstName, String lastName)
 	{
 		assert username != null && username != "" && password != null && password != "" && firstName != null && firstName != "" && lastName != null && lastName != "";

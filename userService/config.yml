@@ -1,8 +1,22 @@
+---
+database:
+  driverClass: com.mysql.jdbc.Driver
+  password: ~
+  properties:
+    hibernate.dialect: org.hibernate.dialect.MySQLDialect
+    hibernate.hbm2ddl.auto: create
+  url: "jdbc:mysql://localhost:3306/test2"
+  user: root
 logging:
   level: INFO
   loggers:
     iou: DEBUG
 server:
   applicationConnectors:
-  - type: http
-    port: 50001
+    -
+      port: 50012
+      type: http
+  adminConnectors:
+    -
+      port: 50011
+      type: http
