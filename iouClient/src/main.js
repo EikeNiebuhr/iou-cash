@@ -17,7 +17,7 @@ new Vue({
   template: '<App/>',
   components: { App },
   data: {
-    friends: [],
+    friendsGlobal: [],
     searchWordGlobal: ''
   }
 })

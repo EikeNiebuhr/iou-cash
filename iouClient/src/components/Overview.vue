@@ -2,9 +2,7 @@
 <div id="Overview">
   <section class="hero">
     <h1 class="title">Overview</h1>
-    <p class="notification">System status:
-      <notification v-bind:notifications="notifications" class="notification"></notification>                    
-    </p>
+      <notification v-bind:notifications="notifications"></notification>
   </section>
   <section class="section">
     <div class="tile is-ancestor">
@@ -42,7 +40,7 @@ export default {
     fetchFriendsData: function () {
       axios.get('http://localhost:3000/friends').then(
         response => {
-          this.$root.friends = response.data
+          this.$root.friendsGlobal = response.data
           this.notifications.push({
             type: 'success',
             message: 'All good! Last succesful update at ' + new Date().toLocaleTimeString()

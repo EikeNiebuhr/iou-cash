@@ -1,18 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
 import Transactions from '@/components/Transactions'
 import Overview from '@/components/Overview'
+import About from '@/components/About'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      name: 'Home',
-      path: '/home',
-      component: Hello
-    },
     {
       path: '/overview',
       name: 'Overview',
@@ -22,6 +17,11 @@ export default new Router({
       path: '/transactions',
       name: 'Transactions',
       component: Transactions
+    },
+    {
+      path: '/about',
+      name: 'About',
+      component: About
     }
   ]
 })

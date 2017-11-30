@@ -1,29 +1,32 @@
 <template>
 <div id='navbar'>
-<section class="section">
-  <div class="container">
-    <nav class="navbar columns">
-      <p class="column has-text-centered">
-        <h1 class="title">IOU CASH</h1>
-      </p>
-            <p class="column has-text-centered">
+  <nav class="level">
+    <div class="level-left">
+    <a id="logo" class="navbar-item" href="">
+      <img src="../assets/logo.png" alt="IOU-Cash: a quick money transfer app">
+    </a>
+  </div>
+  <div class="level-item">
+        <h1 id="main-title" class="has-text-weight-semibold">IOU CASH</h1>
+      </div>
+    <div class="navbar-end">
+          <div class="level-item has-text-centered">
       <div class="field has-addons">
   <div class="control">
     <input class="input" type="text" v-model="$root.searchWordGlobal" placeholder="Search friends">
   </div>
-</div> 
-</p>
-      <p class="column has-text-centered">
+  </div>
+  </div>
+    <div class="level-item has-text-centered">
         <a class="link is-info" href="#">
            <span class="icon"><i class="fa fa-user"></i></span>
         </a>
         <a class="link is-info" href="#">
            <span class="icon"><i class="fa fa-sign-out"></i></span>
         </a>
-      </p>
-    </nav>
-  </div>
-</section>
+      </div>
+</div>
+  </nav>
 </div>
 </template>
 <script>
@@ -47,23 +50,12 @@ export default {
 <style scoped>
 h1,
 h2 {
-  font-weight: normal;
+  font-weight: bolder;
 }
-
-ul {
-  list-style-type: none;
-  padding: 0;
+#main-title {
+  font-size: 40px;
 }
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-.container {
-  background-color: #42b983;
+#navbar {
+  background-color: #F5F5F5;
 }
 </style>

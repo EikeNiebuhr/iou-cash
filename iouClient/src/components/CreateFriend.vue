@@ -65,7 +65,7 @@ export default {
         this.notifications.push({
           type: 'success',
           message: 'New Friend ' + this.friend.name + ' added succesfully!'})
-        this.$root.friends.push(this.friend)
+        this.$root.friendsGlobal.push(this.friend)
       }).catch(e => {
         this.notifications.push(e)
         console.log(e)

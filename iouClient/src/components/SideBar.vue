@@ -1,7 +1,8 @@
 <template>
 <div id="sidebar">
 <aside class="nav-menu">
- <p class="menu-label is-hidden-touch">Navigator</p>
+  <div class="has-text-centered">
+ <p class="menu-label is-hidden-touch">send money to friends</p></div>
   <ul class="menu-list">
       <li>
 <router-link to="/overview"> 
@@ -12,7 +13,7 @@
 <router-link to="/transactions">        
         <span class="icon"><i class="fa fa-table"></i></span> Transactions</router-link>
         </li>
-<router-link to="/">        
+<router-link to="/about">        
         <span class="icon"><i class="fa fa-info"></i></span> About</router-link>
         </li>        
   </ul>

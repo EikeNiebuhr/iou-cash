@@ -1,9 +1,12 @@
 <template>
-    <div id="notifications">
+  <div id="notifications">
+    <div class="notification">
+      <p>System status:</p>
         <div v-for="notification in notifications" :key="notification.type">
             {{ notification.message }}
         </div>
     </div>
+  </div>
 </template>
 
 <script>

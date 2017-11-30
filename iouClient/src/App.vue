@@ -20,7 +20,7 @@ import navbar from './components/NavBar'
 import sidebar from './components/SideBar'
 import overview from './components/Overview'
 import transactions from './components/Transactions'
-import createProduct from './components/CreateProduct'
+import about from './components/About'
 import notification from './components/Notifications'
 import hello from './components/Hello'
 import footerbar from './components/FooterBar'
@@ -31,7 +31,7 @@ export default {
     sidebar,
     overview,
     transactions,
-    createProduct,
+    about,
     notification,
     hello,
     footerbar
