@@ -1,22 +1,30 @@
 package iou.models;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.OneToMany;
 
 @DiscriminatorValue("USER")
 public class User extends Person implements Serializable
 {
-	@Column(name="username")
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3669663879014464566L;
+	
 	private String username;
-	@Column(name="password")
 	private String password;
 	@OneToMany(mappedBy="Person")
-	private ArrayList<Person> friends = new ArrayList<Person>();
-	private ArrayList<Debt> debts = new ArrayList<Debt>();
-	private ArrayList<Debt> assets = new ArrayList<Debt>();
+	private List<Person> friends = new ArrayList<>();
+	private List<Amount> debts = new ArrayList<>();
+	private List<Amount> assets = new ArrayList<>();
+	
+	public User() {
+		
+	}
 
 	public User(String username, String password, String firstName, String lastName)
 	{
@@ -57,7 +65,7 @@ public class User extends Person implements Serializable
 		friends.remove(friend);
 	}
 	
-	public ArrayList<Debt> getDebts()
+	public List<Amount> getDebts()
 	{
 		return debts;
 	}

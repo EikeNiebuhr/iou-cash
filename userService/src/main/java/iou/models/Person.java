@@ -1,7 +1,17 @@
 package iou.models;
 
-import javax.persistence.*;
 import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="PERSON")
@@ -13,22 +23,26 @@ import java.io.Serializable;
 public class Person implements Serializable
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8573375993213673137L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="PERSON_ID")
 	private int id;
-	@Column(name="firstname")
 	protected String firstName;
-	@Column(name="lastname")
 	protected String lastName;
-	@Column(name="mail_address")
 	protected String mailAddress;
-	@Column(name="street")
 	protected String street;
-	@Column(name="postcode")
 	protected Integer postcode;
-	@Column(name="location")
 	protected String location;
+	
+	public Person()
+	{
+		
+	}
 
 
 
