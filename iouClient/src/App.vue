@@ -22,7 +22,6 @@ import overview from './components/Overview'
 import transactions from './components/Transactions'
 import about from './components/About'
 import notification from './components/Notifications'
-import hello from './components/Hello'
 import footerbar from './components/FooterBar'
 
 export default {
@@ -33,7 +32,6 @@ export default {
     transactions,
     about,
     notification,
-    hello,
     footerbar
   },
   name: 'app'
