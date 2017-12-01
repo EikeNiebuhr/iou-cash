@@ -17,7 +17,7 @@
     </div>
     <label class="label">Amount</label>
       <div class="control has-icons-left">
-        <input class="input is-success" type="text" placeholder="Text input" id="friend_name" required>
+        <input class="input is-success" type="text" placeholder="Text input" id="amount" v-model="amount" required>
           <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
       </div>
 </section>
@@ -33,7 +33,8 @@ export default {
     return {
       friends: [],
       notifications: [],
-      selected: ['me', 'you', 'we']
+      selected: ['me', 'you', 'we'],
+      amount: ''
     }
   },
   created: function () {
@@ -44,13 +45,15 @@ export default {
       axios.get('http://localhost:3000/friends').then(
         response => {
           this.$root.friendsGlobal = response.data
+          this.friends = this.$root.friendsGlobal
         }).catch(e => {
           this.notifications.push(e)
         })
     },
     sendMoney: function () {
       axios.post('/addDebt', this.friend, {
-        name: 'Fred'
+        name: this.friend.name,
+        amount: this.amount
       },
         {headers: {
           'Content-Type': 'application/json'

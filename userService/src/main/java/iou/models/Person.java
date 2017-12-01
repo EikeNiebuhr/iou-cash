@@ -13,6 +13,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedQuery;
+
 @Entity
 @Table(name="person")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE) //Least normalisation strategy
@@ -20,9 +22,11 @@ import javax.persistence.Table;
 		name="type",
 		discriminatorType=DiscriminatorType.STRING
 )
+
+@NamedQuery(name="FindAllPersons", query="SELECT * FROM person") 
 public class Person implements Serializable
 {
-
+	public final String findAll = "findAllPersons";
 	/**
 	 * 
 	 */

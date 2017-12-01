@@ -29,8 +29,7 @@ export default {
   data () {
     return {
       friend: {},
-      notifications: [],
-      friends: []
+      notifications: []
     }
   },
   created: function () {

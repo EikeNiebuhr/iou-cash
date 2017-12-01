@@ -5,6 +5,7 @@ import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import iou.db.PersonDao;
 import iou.models.Debt;
 import iou.models.Person;
 
@@ -35,7 +36,11 @@ public class UserServiceApplication extends Application<UserServiceConfiguration
     @Override
     public void run(final UserServiceConfiguration configuration,
                     final Environment environment) {
-        // TODO: implement application
+    	final PersonDao dao = new PersonDao(hibernate.getSessionFactory());
+    	
+    	Person person = new Person();
+    	person.setFirstName("asdasdasd");
+    	dao.createOrUpdate(person);
     }
 
 }

@@ -1,12 +1,30 @@
 package iou.db;
 
+import java.util.List;
+
+import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
+
 import io.dropwizard.hibernate.AbstractDAO;
 import iou.models.Person;
-import org.hibernate.SessionFactory;
+
 
 public class PersonDao extends AbstractDAO<Person> {
 
     public PersonDao(SessionFactory sessionFactory) {
         super(sessionFactory);
+    }
+    
+    public void createOrUpdate(Person person) throws HibernateException  {
+    	currentSession().saveOrUpdate(person);
+    }
+    
+    public void delete(Person person) {
+    	currentSession().delete(person);
+    }
+    
+	@SuppressWarnings("unchecked")
+	public List<Person> findAll() {
+    	return currentSession().getNamedQuery("FindAllPersons").getResultList();
     }
 }
