@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="AMOUNT")
-public class Amount implements Serializable
+@Table(name="debt")
+public class Debt implements Serializable
 {
 
 	/**
@@ -22,7 +22,7 @@ public class Amount implements Serializable
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
-	@Column(name="debt_id")
+	@Column(name="id")
 	private int id;
 	@Column(name="lender")
 	private Person lender;
@@ -33,11 +33,11 @@ public class Amount implements Serializable
 	private boolean isPayed = false;
 
 
-	public Amount()
+	public Debt()
 	{
 	}
 	
-	public Amount(Person friend, double amount)
+	public Debt(Person friend, double amount)
 	{
 		assert friend != null;
 		this.amount = amount;

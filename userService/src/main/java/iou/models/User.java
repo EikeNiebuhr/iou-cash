@@ -7,7 +7,7 @@ import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.OneToMany;
 
-@DiscriminatorValue("USER")
+@DiscriminatorValue("user")
 public class User extends Person implements Serializable
 {
 	/**
@@ -19,8 +19,8 @@ public class User extends Person implements Serializable
 	private String password;
 	@OneToMany(mappedBy="Person")
 	private List<Person> friends = new ArrayList<>();
-	private List<Amount> debts = new ArrayList<>();
-	private List<Amount> assets = new ArrayList<>();
+	private List<Debt> debts = new ArrayList<>();
+	private List<Debt> assets = new ArrayList<>();
 	
 	public User() {
 		
@@ -65,7 +65,7 @@ public class User extends Person implements Serializable
 		friends.remove(friend);
 	}
 	
-	public List<Amount> getDebts()
+	public List<Debt> getDebts()
 	{
 		return debts;
 	}

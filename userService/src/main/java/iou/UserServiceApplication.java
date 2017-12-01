@@ -5,7 +5,7 @@ import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import iou.models.Amount;
+import iou.models.Debt;
 import iou.models.Person;
 
 public class UserServiceApplication extends Application<UserServiceConfiguration> {
@@ -25,7 +25,7 @@ public class UserServiceApplication extends Application<UserServiceConfiguration
         bootstrap.addBundle(hibernate);
     }
 
-    private final HibernateBundle<UserServiceConfiguration> hibernate = new HibernateBundle<UserServiceConfiguration>(Amount.class, Person.class) {
+    private final HibernateBundle<UserServiceConfiguration> hibernate = new HibernateBundle<UserServiceConfiguration>(Debt.class, Person.class) {
         @Override
         public DataSourceFactory getDataSourceFactory(UserServiceConfiguration configuration) {
             return configuration.getDatabaseAppDataSourceFactory();

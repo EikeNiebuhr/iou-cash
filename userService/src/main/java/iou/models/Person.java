@@ -14,10 +14,10 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="PERSON")
+@Table(name="person")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE) //Least normalisation strategy
 @DiscriminatorColumn(
-		name="PERSON_TYPE",
+		name="type",
 		discriminatorType=DiscriminatorType.STRING
 )
 public class Person implements Serializable
@@ -30,7 +30,7 @@ public class Person implements Serializable
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="PERSON_ID")
+	@Column(name="id")
 	private int id;
 	protected String firstName;
 	protected String lastName;
