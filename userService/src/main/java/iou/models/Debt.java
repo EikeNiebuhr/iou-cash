@@ -3,12 +3,7 @@ package iou.models;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="Debt")
@@ -24,10 +19,12 @@ public class Debt implements Serializable
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	@Column(name="id")
 	private int id;
-	@Column(name="lender")
-	private Person lender;
-	@Column(name="borrower")
-	private Person borrower;
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Person.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "person", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "creditor")})
+	private Person creditor;
+//    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Person.class, fetch = FetchType.EAGER)
+//    @JoinTable(name = "person", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "debitor")})
+//	private Person debitor;
 	private double amount;
 	private Date date;
 	private boolean isPayed = false;
@@ -41,7 +38,7 @@ public class Debt implements Serializable
 	{
 		assert friend != null;
 		this.amount = amount;
-		date = new Date(System.currentTimeMillis());
+		//date = new Date(System.currentTimeMillis());
 	}
 
 	public void pay()

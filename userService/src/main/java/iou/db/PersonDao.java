@@ -9,15 +9,19 @@ import io.dropwizard.hibernate.AbstractDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import iou.models.Person;
 
+import javax.inject.Inject;
+
 
 public class PersonDao extends AbstractDAO<Person> {
 
+    @Inject
     public PersonDao(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
-    
+
+    @UnitOfWork
     public void createOrUpdate(Person person) throws HibernateException  {
-    	currentSession().saveOrUpdate(person);
+    	persist(person);
     }
     
     public void delete(Person person) {

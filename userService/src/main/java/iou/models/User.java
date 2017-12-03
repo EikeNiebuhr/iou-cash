@@ -1,11 +1,17 @@
 package iou.models;
 
+
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+
+@Entity
+
 
 @DiscriminatorValue("User")
 public class User extends Person implements Serializable
@@ -17,11 +23,17 @@ public class User extends Person implements Serializable
 	
 	private String username;
 	private String password;
-	@OneToMany(mappedBy="Person")
-	private List<Person> friends = new ArrayList<>();
-	private List<Debt> debts = new ArrayList<>();
-	private List<Debt> assets = new ArrayList<>();
-	
+//    @OneToMany(cascade = CascadeType.ALL, targetEntity = Person.class, fetch = FetchType.EAGER)
+//    @JoinTable(name = "person", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "id")})
+//	private List<Person> friends = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = Debt.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "debt", joinColumns = {@JoinColumn(name = "creditor")}, inverseJoinColumns = {@JoinColumn(name = "id")})
+    private Set<Debt> debts = new HashSet<Debt>();
+
+//    @OneToMany(cascade = CascadeType.ALL, targetEntity = Debt.class, fetch = FetchType.EAGER)
+//    @JoinTable(name = "debt", joinColumns = {@JoinColumn(name = "debitor")}, inverseJoinColumns = {@JoinColumn(name = "id")})
+//    private Set<Debt> assets = new HashSet<Debt>();
+
 	public User() {
 		
 	}
@@ -53,19 +65,19 @@ public class User extends Person implements Serializable
 		return username;
 	}
 	
-	public void addFriend(Person friend)
-	{
-		assert friend != null && friend != this && !friends.contains(friend);
-		friends.add(friend);
-	}
+//	public void addFriend(Person friend)
+//	{
+//		assert friend != null && friend != this && !friends.contains(friend);
+//		friends.add(friend);
+//	}
+//
+//	public void deleteFriend(Person friend)
+//	{
+//		assert friends.contains(friend);
+//		friends.remove(friend);
+//	}
 
-	public void deleteFriend(Person friend)
-	{
-		assert friends.contains(friend);
-		friends.remove(friend);
-	}
-	
-	public List<Debt> getDebts()
+	public Set<Debt> getDebts()
 	{
 		return debts;
 	}
