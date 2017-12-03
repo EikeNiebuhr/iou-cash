@@ -2,7 +2,7 @@ package iou.models;
 
 import javax.persistence.DiscriminatorValue;
 
-@DiscriminatorValue("guest")
+@DiscriminatorValue("Guest")
 public class Guest extends Person
 {
 	/**

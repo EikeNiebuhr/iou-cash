@@ -7,7 +7,7 @@ import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.OneToMany;
 
-@DiscriminatorValue("user")
+@DiscriminatorValue("User")
 public class User extends Person implements Serializable
 {
 	/**

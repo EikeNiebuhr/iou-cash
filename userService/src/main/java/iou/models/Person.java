@@ -16,17 +16,16 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NamedQuery;
 
 @Entity
-@Table(name="person")
+@Table(name="Person")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE) //Least normalisation strategy
 @DiscriminatorColumn(
 		name="type",
 		discriminatorType=DiscriminatorType.STRING
 )
 
-@NamedQuery(name="FindAllPersons", query="SELECT * FROM person") 
+@NamedQuery(name="Person.findAll", query="SELECT p FROM Person p") 
 public class Person implements Serializable
 {
-	public final String findAll = "findAllPersons";
 	/**
 	 * 
 	 */
@@ -47,9 +46,7 @@ public class Person implements Serializable
 	{
 		
 	}
-
-
-
+			
 	public void setFirstName(String firstName)
 	{
 		this.firstName = firstName;

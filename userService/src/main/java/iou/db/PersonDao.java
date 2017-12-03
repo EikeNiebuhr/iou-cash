@@ -6,6 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 
 import io.dropwizard.hibernate.AbstractDAO;
+import io.dropwizard.hibernate.UnitOfWork;
 import iou.models.Person;
 
 
@@ -24,7 +25,8 @@ public class PersonDao extends AbstractDAO<Person> {
     }
     
 	@SuppressWarnings("unchecked")
+	@UnitOfWork
 	public List<Person> findAll() {
-    	return currentSession().getNamedQuery("FindAllPersons").getResultList();
+    	return currentSession().getNamedQuery("Person.findAll").getResultList();
     }
 }
