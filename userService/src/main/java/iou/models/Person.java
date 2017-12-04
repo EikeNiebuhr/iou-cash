@@ -1,17 +1,10 @@
 package iou.models;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.NamedQuery;
 
@@ -35,6 +28,8 @@ public class Person implements Serializable
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
 	private int id;
+	@ManyToMany(mappedBy="friendships")
+	private Set<User> friends = new HashSet<User>();
 	protected String firstName;
 	protected String lastName;
 	protected String mailAddress;
