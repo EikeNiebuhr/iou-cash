@@ -14,7 +14,6 @@
 </div>
 </div>
 </template>
-
 <script>
 import navbar from './components/NavBar'
 import sidebar from './components/SideBar'

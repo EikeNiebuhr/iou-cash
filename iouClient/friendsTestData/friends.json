@@ -1,50 +1,44 @@
 {
   "friends": [
     {
-      "id": 1,
-      "name": "John",
-      "totalpositive": 100,
-      "totalnegative": 200
+      "name": "1",
+      "id": 1
     },
     {
-      "id": 2,
-      "name": "Pete",
-      "totalpositive": 100,
-      "totalnegative": 200
+      "name": "2",
+      "id": 2
     },
     {
-      "id": 3,
-      "name": "Manuell",
-      "totalpositive": 100,
-      "totalnegative": 200
+      "name": "1",
+      "id": 3
     },
     {
-      "id": 4,
-      "name": "Paul",
-      "totalpositive": 100,
-      "totalnegative": 200
+      "name": "a",
+      "id": 4
     },
     {
-      "id": 5,
-      "name": "Jane",
-      "totalpositive": 10000,
-      "totalnegative": 0
+      "name": "b",
+      "id": 5
     },
     {
-      "name": "test",
+      "name": "asd",
       "id": 6
     },
     {
-      "name": "john smithhhz",
+      "name": "asdasd",
       "id": 7
     },
     {
-      "name": "asdasd",
+      "name": "asd",
       "id": 8
     },
     {
-      "name": "sfd",
+      "name": "asd",
       "id": 9
+    },
+    {
+      "name": "tetet",
+      "id": 10
     }
   ]
 }

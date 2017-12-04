@@ -5,23 +5,78 @@
       <notification v-bind:notifications="notifications"></notification>     
    </section>
 <section class="section">
-  <div class="field">
-    <label class="label">Friend</label>
-      <div class="control">
-        <div class="select">
-          <select v-model="selected">
-            <option v-for="friend in friends" :key="friend">{{friend.name}}</option>
-          </select>
+  <div class="level">
+    <div class="level-left">
+      <div class="field">
+          <h1 class="title">Lend money to {{ debitorFriend }}</h1>
+      </div>
+    </div>
+    <div class="level-right">
+      <div class="field">
+        <div class="field has-addons">
+        <div class="control has-icons-left">
+          <div class="select">
+            <select v-model="debitorFriend">
+              <option v-for="friend in allFriends" :key="friend.name">{{ friend.name }}</option>
+            </select>
+            <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
+          </div>
+        </div>
+          <div class="control has-icons-right">
+            <input class="input is-success" type="text" placeholder="Enter amount" id="amount" v-model="credit" required>
+            <span class="icon is-small is-right"><i class="fa fa-eur"></i></span>
+          </div>
+          <div class="control">
+            <button id="lend-money" @click.prevent="lendMoney" class="button is-info is-outlined" aria-hidden="true">
+              <span><i class="fa fa-credit-card" aria-hidden="true"> Send Money</i></span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-    <label class="label">Amount</label>
-      <div class="control has-icons-left">
-        <input class="input is-success" type="text" placeholder="Text input" id="amount" v-model="amount" required>
-          <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
-      </div>
+  </div>
 </section>
-<button id="send-money" v-on:click="sendMoney" class="button is-info" aria-hidden="true"><i class="fa fa-user-plus" aria-hidden="true"> Send Moneyz</i></button>
+
+<section class="section">
+  <div class="level">
+    <div class="level-left">
+           <div class="field">
+       <div class="has-text-centered">
+          <h1 class="title">Pay back: </h1>
+        </div>
+      </div>
+    </div>
+    <div class="level-item">
+    </div>
+    <div class="level-left">
+        <div class="field has-addons">
+        <div class="control has-icons-left">
+          <div class="select">
+            <select v-model="creditorFriend">
+              <option v-for="friend in friendAndDebt" :key="friend.name">{{ friend.name }}</option>
+            </select>
+            <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
+          </div>
+        </div>
+        <div class="control has-text-centered">
+          <p class="subtitle" id="pay-back-text">Pay debt + lalala {{ creditorFriend }} + ?</p>
+        </div>
+
+          <div class="control">
+            <button id="send-money" @click.prevent="paybackMoney" class="button is-danger is-outlined" aria-hidden="true">
+              <span><i class="fa fa-credit-card" aria-hidden="true"> Payback Money</i></span>
+            </button>
+          </div>
+                </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="level">
+    <p>Payed amount in <i class="fa fa-btc" aria-hidden="true"></i> : {{ debtInBitcoin }}</p>
+  </div>
+</section>
 </div>
 </template>
 
@@ -31,26 +86,44 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      friends: [],
       notifications: [],
-      selected: ['me', 'you', 'we'],
-      amount: ''
+      allFriends: [],
+      friendAndDebt: [],
+      debitorFriend: '',
+      debt: '',
+      debtInBitcoin: '',
+      credit: '',
+      creditorFriend: ''
     }
   },
   created: function () {
-    this.fetchProductData()
+    this.fetchFriendsData()
+    this.friendAndDebt()
   },
   methods: {
-    fetchProductData: function () {
+    fetchFriendsData: function () {
       axios.get('http://localhost:3000/friends').then(
         response => {
           this.$root.friendsGlobal = response.data
-          this.friends = this.$root.friendsGlobal
+          this.allFriends = this.$root.friendsGlobal
+          this.notifications.push({
+            type: 'success',
+            message: 'All good! Last succesful update at ' + new Date().toLocaleTimeString()
+          })
+          console.log(response)
         }).catch(e => {
           this.notifications.push(e)
         })
     },
-    sendMoney: function () {
+    fetchFriendsAndDebts: function () {
+      axios.get('http://localhost:3000/friendsAndDebts/').then(
+        response => {
+          this.friendAndDebt = response.data
+        }).catch(e => {
+          this.notifications.push(e)
+        })
+    },
+    lendMoney: function () {
       axios.post('/addDebt', this.friend, {
         name: this.friend.name,
         amount: this.amount
@@ -67,6 +140,22 @@ export default {
     this.notifications.push(error)
     console.log(error)
   })
+    },
+    paybackMoney: function () {
+    },
+    moneyInBitcoin: function () {
+      axios.post('http://localhost:3000/', {
+        debt: this.debt.amount,
+        date: new Date().now()
+      },
+        {headers: {
+          'Content-Type': 'application/json'
+        }}
+      )
+  .then(function (response) {
+    console.log(response)
+    this.debtInBitcoin = response.data
+  })
     }
   },
   components: {
@@ -75,11 +164,9 @@ export default {
 }
 </script>
 <style scoped>
-.negative {
- background-color: #FF3860
-}
-
-.positive {
-  background-color: #42b983
+#pay-back-text {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 5px;
 }
 </style>

@@ -1,9 +1,10 @@
 <template>
  <modal name="createFriend"
- :draggble=true
+ :draggable="true"
  :width="640"
- :height="400"
- :closed="clearAll"
+ :height="480"
+ :scrollable="true"
+ @closed="clearAll"
  >
     <div class="modal-card">
      <header class="modal-card-head">
@@ -15,14 +16,15 @@
       <notification v-bind:notifications="notifications" class="notification"></notification>  
   <label class="label">Name</label>
   <div class="control has-icons-left">
-    <input class="input is-success" type="text" placeholder="John Smith" v-model="friend.name" id="friend_name" required>
+    <input class="input is-success" type="text" placeholder="John Smith" v-model="friend.name" :disabled="isDisabled" id="friend_name" required>
    <span class="icon is-small is-left">
       <i class="fa fa-user"></i>
     </span>
       </div>
       </section>
     <footer class="modal-card-foot">
-      <button class="button is-success" v-on:click="addFriend">Save changes</button>
+      <button class="button is-success" @click.prevent="addFriend">Save changes</button>
+      <button class="button" @click="$modal.hide('createFriend')" v-on:click="clearAll">Close</button>
       <button class="button" @click="$modal.hide('createFriend')" v-on:click="clearAll">Cancel</button>
     </footer>
     </div>
@@ -32,18 +34,20 @@
 import Notification from './Notifications'
 import axios from 'axios'
 import nullCheck from '../mixins/nullCheck'
+import search from '../mixins/search'
 export default {
   data () {
     return {
       friend: {},
       notifications: [],
-      friends: []
+      isDisabled: false
     }
   },
   methods: {
     clearAll: function () {
-      this.friend.name = ''
+      this.friend.name = null
       this.notifications.length = 0
+      this.isDisabled = false
     },
     addFriend: function () {
       if (this.isNullOrWhitespace(this.friend.name)) {
@@ -52,11 +56,8 @@ export default {
           message: 'Oops! Please give your friend a name'
         })
         return false
-      } else {
-        this.friend.name = this.friend.name
       }
-
-      axios.post('http://localhost:3000/friends', this.friend, {
+      axios.post('http://localhost:3000/friends/', this.friend, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -65,7 +66,8 @@ export default {
         this.notifications.push({
           type: 'success',
           message: 'New Friend ' + this.friend.name + ' added succesfully!'})
-        this.$root.friendsGlobal.push(this.friend)
+        this.$set(this.$root.friendsGlobal, (this.$root.friendsGlobal.length + 1), this.friend)
+        this.isDisabled = true
       }).catch(e => {
         this.notifications.push(e)
         console.log(e)
@@ -76,7 +78,8 @@ export default {
     notification: Notification
   },
   mixins: [
-    nullCheck
+    nullCheck,
+    search
   ]
 }
 </script>
