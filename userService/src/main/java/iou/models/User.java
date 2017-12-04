@@ -26,13 +26,16 @@ public class User extends Person implements Serializable
 //    @OneToMany(cascade = CascadeType.ALL, targetEntity = Person.class, fetch = FetchType.EAGER)
 //    @JoinTable(name = "person", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "id")})
 //	private List<Person> friends = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = Debt.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "debt", joinColumns = {@JoinColumn(name = "creditor")}, inverseJoinColumns = {@JoinColumn(name = "id")})
+/*    @OneToMany(cascade = CascadeType.ALL, targetEntity = Debt.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "debt", joinColumns = {@JoinColumn(name = "creditor")}, inverseJoinColumns = {@JoinColumn(name = "id")})*/
+	@OneToMany(mappedBy="debitor")
     private Set<Debt> debts = new HashSet<Debt>();
 
 //    @OneToMany(cascade = CascadeType.ALL, targetEntity = Debt.class, fetch = FetchType.EAGER)
 //    @JoinTable(name = "debt", joinColumns = {@JoinColumn(name = "debitor")}, inverseJoinColumns = {@JoinColumn(name = "id")})
-//    private Set<Debt> assets = new HashSet<Debt>();
+
+	@OneToMany(mappedBy="creditor")
+    private Set<Debt> assets = new HashSet<Debt>();
 
 	public User() {
 		

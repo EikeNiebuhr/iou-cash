@@ -2,7 +2,9 @@ package iou.resources;
 
 
 import io.dropwizard.hibernate.UnitOfWork;
+import iou.db.DebtDao;
 import iou.db.PersonDao;
+import iou.models.Debt;
 import iou.models.Person;
 import iou.models.User;
 
@@ -16,9 +18,11 @@ import java.util.Optional;
 public class PeopleResource {
 
     private PersonDao personDao;
+    private DebtDao debtDao;
 
-    public PeopleResource(PersonDao personDao) {
+    public PeopleResource(PersonDao personDao, DebtDao debtDao) {
         this.personDao = personDao;
+        this.debtDao = debtDao;
     }
     @GET
     @UnitOfWork
@@ -32,6 +36,10 @@ public class PeopleResource {
         u.setFirstName("User");
         u.setLastName("Resu");
         personDao.createOrUpdate(u);
+        Debt d = new Debt();
+        d.setCreditor(p);
+        d.setDebitor(u);
+        debtDao.createOrUpdate(d);
         return "WHOOP";
     }
 

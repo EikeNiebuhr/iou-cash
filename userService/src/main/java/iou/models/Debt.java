@@ -19,12 +19,14 @@ public class Debt implements Serializable
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	@Column(name="id")
 	private int id;
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Person.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "person", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "creditor")})
+	@ManyToOne(optional=false)
+	@JoinColumn(name="creditor_id", referencedColumnName="id")
 	private Person creditor;
 //    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Person.class, fetch = FetchType.EAGER)
 //    @JoinTable(name = "person", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "debitor")})
-//	private Person debitor;
+	@ManyToOne(optional=false)
+	@JoinColumn(name="debitor_id",referencedColumnName="id")
+	private Person debitor;
 	private double amount;
 	private Date date;
 	private boolean isPayed = false;
@@ -67,4 +69,19 @@ public class Debt implements Serializable
 
 	}
 
+	public Person getDebitor() {
+		return debitor;
+	}
+
+	public void setDebitor(Person debitor) {
+		this.debitor = debitor;
+	}
+
+	public Person getCreditor() {
+		return creditor;
+	}
+
+	public void setCreditor(Person creditor) {
+		this.creditor = creditor;
+	}
 }
