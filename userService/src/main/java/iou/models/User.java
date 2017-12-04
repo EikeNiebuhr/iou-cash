@@ -1,5 +1,7 @@
 package iou.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,6 +10,7 @@ import javax.persistence.*;
 
 @Entity
 
+@org.hibernate.annotations.NamedQuery(name="User.findAllFriends", query="SELECT p FROM Person p " )
 
 @DiscriminatorValue("User")
 public class User extends Person implements Serializable
@@ -90,6 +93,7 @@ public class User extends Person implements Serializable
 		friends.add(friend);
 	}
 
+	@JsonProperty
 	public void deleteFriend(Person friend)
 	{
 		assert friends.contains(friend);

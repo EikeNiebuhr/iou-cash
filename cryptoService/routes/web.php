@@ -11,12 +11,9 @@
 |
 */
 
-$router->get('/{amount}', function ($amount) use ($router) {
-    $btc = file_get_contents("https://blockchain.info/tobtc?currency=EUR&value=$amount");
-    return json_encode([
-      'bitcoin' => [
-        'value' => $btc,
-	'time' => time()
-      ]
-    ]);
-});
+$router->get( '{amount}', 'CryptoController@convert' );
+
+$router->get( '{timestamp}/{amount}', 'CryptoController@convertByDate' );
+
+$router->get( '{timestampFrom}/{timestampTo}/{amount}', 'CryptoController@convertInRange' );
+
