@@ -44,23 +44,9 @@ public class PersonDao extends AbstractDAO<Person> {
     {
     	return currentSession().getNamedQuery("Person.findAll").getResultList();
     }
-<<<<<<< HEAD
 	
     public Person find(int person_id) {
     	Query query = entityManager.createNamedQuery("Person.find").setParameter("person_id", person_id);  
         return (Person) query.getSingleResult();
-=======
-
-    public List<Person> findAllFriends(int user_id)
-    {
-        User user = currentSession().find(User.class, user_id);
-        List<Person> list = new ArrayList<Person>();
-
-        for(Person item : user.getFriendships()) {
-            list.add(item);
-            System.out.println(item.getFirstName());
-        }
-        return list;
->>>>>>> branch 'master' of https://github.com/EikeNiebuhr/iou-cash
     }
 }

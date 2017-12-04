@@ -8,9 +8,7 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 import java.util.Set;
 
 @Path("/friends")
@@ -27,11 +25,8 @@ public class FriendsResource {
 
     @GET
     @UnitOfWork
-    public List<Person> list()
+    public Set<Person> list()
     {
-        return userService.getAllFriends(2);
+        return userService.getFriends(2);
     }
-
-
-
 }

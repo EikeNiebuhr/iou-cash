@@ -6,11 +6,7 @@ import iou.models.Debt;
 import iou.models.Person;
 import iou.models.User;
 
-<<<<<<< HEAD
 import java.util.HashSet;
-=======
-import java.util.List;
->>>>>>> branch 'master' of https://github.com/EikeNiebuhr/iou-cash
 import java.util.Set;
 
 public class UserService {
@@ -52,26 +48,12 @@ public class UserService {
     }
 
     //GET
-<<<<<<< HEAD
     public Set<Person> getFriends(int user_id)
-=======
-    public List<Person> getAllFriends(int user_id)
->>>>>>> branch 'master' of https://github.com/EikeNiebuhr/iou-cash
     {
-<<<<<<< HEAD
     	return ((User) personDao.find(user_id)).getFriends();
-=======
-        return personDao.findAllFriends(user_id);
->>>>>>> branch 'master' of https://github.com/EikeNiebuhr/iou-cash
     }
-
-<<<<<<< HEAD
+    
     public Set<Person> getFriendsWithDebts(int user_id)
-=======
-    //???
-/*
-    public Set<Person> getAllFriendsWithDebtsAndAssets(int user_id)
->>>>>>> branch 'master' of https://github.com/EikeNiebuhr/iou-cash
     {
     	Set<Debt> debts = ((User) personDao.find(user_id)).getDebts();
     	Set<Person> friends = new HashSet<Person>();
@@ -114,13 +96,4 @@ public class UserService {
     {
     	return ((User) personDao.find(user_id)).getAssets();
     }
-<<<<<<< HEAD
 }
-=======
-*/
-
-
-
-}
-
->>>>>>> branch 'master' of https://github.com/EikeNiebuhr/iou-cash
