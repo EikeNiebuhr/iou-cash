@@ -23,16 +23,17 @@ public class User extends Person implements Serializable
 	
 	private String username;
 	private String password;
-//    @OneToMany(cascade = CascadeType.ALL, targetEntity = Person.class, fetch = FetchType.EAGER)
-//    @JoinTable(name = "person", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "id")})
-//	private List<Person> friends = new ArrayList<>();
-/*    @OneToMany(cascade = CascadeType.ALL, targetEntity = Debt.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "debt", joinColumns = {@JoinColumn(name = "creditor")}, inverseJoinColumns = {@JoinColumn(name = "id")})*/
+
+	@ManyToMany(cascade = {CascadeType.ALL})
+	@JoinTable(
+			name = "user_friends",
+			joinColumns = { @JoinColumn(name = "user_id") },
+			inverseJoinColumns = { @JoinColumn(name = "friend_id") }
+	)
+	private Set<Person> friendships = new HashSet<Person>();
+
 	@OneToMany(mappedBy="debitor")
     private Set<Debt> debts = new HashSet<Debt>();
-
-//    @OneToMany(cascade = CascadeType.ALL, targetEntity = Debt.class, fetch = FetchType.EAGER)
-//    @JoinTable(name = "debt", joinColumns = {@JoinColumn(name = "debitor")}, inverseJoinColumns = {@JoinColumn(name = "id")})
 
 	@OneToMany(mappedBy="creditor")
     private Set<Debt> assets = new HashSet<Debt>();
@@ -68,11 +69,11 @@ public class User extends Person implements Serializable
 		return username;
 	}
 	
-//	public void addFriend(Person friend)
-//	{
-//		assert friend != null && friend != this && !friends.contains(friend);
-//		friends.add(friend);
-//	}
+	public void addFriend(Person friend)
+	{
+		friendships.add(friend);
+
+	}
 //
 //	public void deleteFriend(Person friend)
 //	{
@@ -97,5 +98,13 @@ public class User extends Person implements Serializable
 		{
 			return false;
 		}
+	}
+
+	public Set<Person> getFriendships() {
+		return friendships;
+	}
+
+	public void setFriendships(Set<Person> friendships) {
+		this.friendships = friendships;
 	}
 }

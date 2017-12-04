@@ -35,6 +35,7 @@ public class PeopleResource {
         User u = new User();
         u.setFirstName("User");
         u.setLastName("Resu");
+        u.addFriend(p);
         personDao.createOrUpdate(u);
         Debt d = new Debt();
         d.setCreditor(p);
