@@ -5,6 +5,7 @@ import iou.db.PersonDao;
 import iou.models.Debt;
 import iou.models.Person;
 
+import java.util.List;
 import java.util.Set;
 
 public class UserService {
@@ -41,12 +42,13 @@ public class UserService {
     }
 
     //GET
-    public Set<Person> getAllFriends(int user_id)
+    public List<Person> getAllFriends(int user_id)
     {
-
+        return personDao.findAllFriends(user_id);
     }
 
     //???
+/*
     public Set<Person> getAllFriendsWithDebtsAndAssets(int user_id)
     {
 
@@ -62,6 +64,7 @@ public class UserService {
     {
 
     }
+*/
 
 
 

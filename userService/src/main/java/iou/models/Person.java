@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.NamedQuery;
 
 @Entity
@@ -41,64 +42,86 @@ public class Person implements Serializable
 	{
 		
 	}
-			
+
+	@JsonProperty
 	public void setFirstName(String firstName)
 	{
 		this.firstName = firstName;
 	}
-	
+
+	@JsonProperty
 	public String getFirstName()
 	{
 		return firstName;
 	}
-	
+
+	@JsonProperty
 	public void setLastName(String lastName)
 	{
 		this.lastName = lastName;
 	}
-	
+
+	@JsonProperty
 	public String getLastName()
 	{
 		return lastName;
 	}
-	
+
+	@JsonProperty
 	public String getMailAddress()
 	{
 		return mailAddress;
 	}
-	
+
+	@JsonProperty
 	public void setMailAddress(String mailAddress)
 	{
 		this.mailAddress = mailAddress;
 	}
 
+	@JsonProperty
 	public String getStreet()
 	{
 		return street;
 	}
 
+	@JsonProperty
 	public void setStreet(String street)
 	{
 		this.street = street;
 	}
 
+	@JsonProperty
 	public int getPostcode()
 	{
 		return postcode;
 	}
 
+	@JsonProperty
 	public void setPostcode(int postcode)
 	{
 		this.postcode = postcode;
 	}
 
+	@JsonProperty
 	public String getLocation()
 	{
 		return location;
 	}
 
+	@JsonProperty
 	public void setLocation(String location)
 	{
 		this.location = location;
+	}
+
+	@JsonProperty
+	public int getId() {
+		return id;
+	}
+
+	@JsonProperty
+	public void setId(int id) {
+		this.id = id;
 	}
 }
