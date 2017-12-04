@@ -12,7 +12,7 @@ import iou.models.Debt;
 import iou.models.Guest;
 import iou.models.Person;
 import iou.models.User;
-import iou.resources.PeopleResource;
+import iou.resources.PersonResource;
 import org.hibernate.Session;
 
 public class UserServiceApplication extends Application<UserServiceConfiguration> {
@@ -45,7 +45,7 @@ public class UserServiceApplication extends Application<UserServiceConfiguration
 	public void run(final UserServiceConfiguration configuration, Environment environment) throws ClassNotFoundException {
 		final PersonDao peopledao = new PersonDao(hibernate.getSessionFactory());
 		final DebtDao debtdao = new DebtDao(hibernate.getSessionFactory());
-        environment.jersey().register(new PeopleResource(peopledao, debtdao));
+        environment.jersey().register(new PersonResource(peopledao, debtdao));
 
 
 

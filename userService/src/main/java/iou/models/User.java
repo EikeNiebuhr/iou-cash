@@ -1,11 +1,7 @@
 package iou.models;
 
-
-
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -30,7 +26,7 @@ public class User extends Person implements Serializable
 			joinColumns = { @JoinColumn(name = "user_id") },
 			inverseJoinColumns = { @JoinColumn(name = "friend_id") }
 	)
-	private Set<Person> friendships = new HashSet<Person>();
+	private Set<Person> friends = new HashSet<Person>();
 
 	@OneToMany(mappedBy="debitor")
     private Set<Debt> debts = new HashSet<Debt>();
@@ -69,23 +65,6 @@ public class User extends Person implements Serializable
 		return username;
 	}
 	
-	public void addFriend(Person friend)
-	{
-		friendships.add(friend);
-
-	}
-//
-//	public void deleteFriend(Person friend)
-//	{
-//		assert friends.contains(friend);
-//		friends.remove(friend);
-//	}
-
-	public Set<Debt> getDebts()
-	{
-		return debts;
-	}
-	
 	public boolean changePassword(String oldPassword, String newPassword)
 	{
 		assert newPassword != null && newPassword != "";
@@ -99,12 +78,31 @@ public class User extends Person implements Serializable
 			return false;
 		}
 	}
-
-	public Set<Person> getFriendships() {
-		return friendships;
+	
+	public Set<Person> getFriends()
+	{
+		return friends;
+	}
+	
+	public void addFriend(Person friend)
+	{
+		assert friend != null;
+		friends.add(friend);
 	}
 
-	public void setFriendships(Set<Person> friendships) {
-		this.friendships = friendships;
+	public void deleteFriend(Person friend)
+	{
+		assert friends.contains(friend);
+		friends.remove(friend);
+	}
+	
+	public Set<Debt> getDebts()
+	{
+		return debts;
+	}
+	
+	public Set<Debt> getAssets()
+	{
+		return assets;
 	}
 }

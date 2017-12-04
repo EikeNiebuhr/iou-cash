@@ -15,12 +15,12 @@ import java.util.Optional;
 
 @Path("/people")
 @Produces(MediaType.APPLICATION_JSON)
-public class PeopleResource {
+public class PersonResource {
 
     private PersonDao personDao;
     private DebtDao debtDao;
 
-    public PeopleResource(PersonDao personDao, DebtDao debtDao) {
+    public PersonResource(PersonDao personDao, DebtDao debtDao) {
         this.personDao = personDao;
         this.debtDao = debtDao;
     }
@@ -37,9 +37,7 @@ public class PeopleResource {
         u.setLastName("Resu");
         u.addFriend(p);
         personDao.createOrUpdate(u);
-        Debt d = new Debt();
-        d.setCreditor(p);
-        d.setDebitor(u);
+        Debt d = new Debt(u, p, 10);
         debtDao.createOrUpdate(d);
         return "WHOOP";
     }

@@ -5,8 +5,12 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.NamedQuery;
+
 @Entity
 @Table(name="Debt")
+@NamedQuery(name="Debt.find", query="SELECT debt FROM Debt debt WHERE id = :debt_id") 
+@NamedQuery(name="Debt.findAll", query="SELECT debt FROM Debt debt") 
 public class Debt implements Serializable
 {
 
@@ -30,17 +34,12 @@ public class Debt implements Serializable
 	private double amount;
 	private Date date;
 	private boolean isPayed = false;
-
-
-	public Debt()
-	{
-	}
 	
-	public Debt(Person friend, double amount)
+	public Debt(Person creditor, Person debitor, double amount)
 	{
-		assert friend != null;
+		assert creditor != null && debitor != null && amount > 0;
 		this.amount = amount;
-		//date = new Date(System.currentTimeMillis());
+		date = new Date(System.currentTimeMillis());
 	}
 
 	public void pay()

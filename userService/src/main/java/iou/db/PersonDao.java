@@ -10,9 +10,12 @@ import io.dropwizard.hibernate.UnitOfWork;
 import iou.models.Person;
 
 import javax.inject.Inject;
-
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 public class PersonDao extends AbstractDAO<Person> {
+	
+	private EntityManager entityManager;
 
     @Inject
     public PersonDao(SessionFactory sessionFactory) {
@@ -28,9 +31,18 @@ public class PersonDao extends AbstractDAO<Person> {
     	currentSession().delete(person);
     }
     
+    public Person find(Person person) {
+    	return currentSession().find(Person.class, person);
+    }
+    
 	@SuppressWarnings("unchecked")
 	@UnitOfWork
 	public List<Person> findAll() {
     	return currentSession().getNamedQuery("Person.findAll").getResultList();
+    }
+	
+    public Person find(int person_id) {
+    	Query query = entityManager.createNamedQuery("Person.find").setParameter("person_id", person_id);  
+        return (Person) query.getSingleResult();
     }
 }
