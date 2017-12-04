@@ -10,6 +10,7 @@ import iou.models.User;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -42,17 +43,18 @@ public class PersonResource {
         return "WHOOP";
     }
 
-//    @GET
-//    @UnitOfWork
-//    public List<Person> findByName(
-//            @QueryParam("name") Optional<String> name
-//    ) {
-//        if (name.isPresent()) {
-//            return personDao.findByName(name.get());
-//        } else {
-//            return personDao.findAll();
-//        }
-//    }
+    @GET
+    @UnitOfWork
+    @Path("/people/find")
+    public List<Person> findByName(
+            @QueryParam("name") Optional<String> name
+    ) {
+        if (name.isPresent()) {
+            return null; }
+            else {
+            return personDao.findAll();
+        }
+    }
 //
 //    @GET
 //    @Path("/{id}")

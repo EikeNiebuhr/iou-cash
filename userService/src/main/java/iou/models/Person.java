@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.NamedQuery;
 
@@ -27,11 +28,12 @@ public class Person implements Serializable
 	private static final long serialVersionUID = 8573375993213673137L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
-	@ManyToMany(mappedBy="friendships")
-	private Set<User> friends = new HashSet<User>();
+	@JsonIgnore
+	@ManyToMany(mappedBy="friends")
+	private Set<User> userFriends = new HashSet<User>();
 	protected String firstName;
 	protected String lastName;
 	protected String mailAddress;

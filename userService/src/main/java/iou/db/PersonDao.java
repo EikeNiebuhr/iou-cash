@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.base.Optional;
 import iou.models.User;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -46,7 +47,8 @@ public class PersonDao extends AbstractDAO<Person> {
     }
 	
     public Person find(int person_id) {
-    	Query query = entityManager.createNamedQuery("Person.find").setParameter("person_id", person_id);  
-        return (Person) query.getSingleResult();
+        return get(person_id);
+//        Query query = entityManager.createNamedQuery("Person.find").setParameter("person_id", person_id);
+//        return (Person) query.getSingleResult();
     }
 }
