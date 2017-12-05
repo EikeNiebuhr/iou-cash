@@ -6,6 +6,7 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import iou.api.FriendService;
 import iou.api.UserService;
 import iou.db.DebtDAO;
 import iou.db.PersonDAO;
@@ -48,8 +49,9 @@ public class UserServiceApplication extends Application<UserServiceConfiguration
 		final PersonDAO personDAO = new PersonDAO(hibernate.getSessionFactory());
 		final DebtDAO debtDAO = new DebtDAO(hibernate.getSessionFactory());
 		final UserService userService = new UserService(personDAO, debtDAO);
+		final FriendService friendService = new FriendService(personDAO, debtDAO);
         environment.jersey().register(new PersonResource(personDAO, debtDAO));
-        environment.jersey().register(new FriendsResource(userService));
+        environment.jersey().register(new FriendsResource(userService, friendService));
         environment.jersey().register(new DebtResource(userService));
 	}
 

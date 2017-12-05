@@ -14,6 +14,8 @@ import javax.ws.rs.core.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.dropwizard.hibernate.UnitOfWork;
+import iou.api.FriendResponse;
+import iou.api.FriendService;
 import iou.api.PersonResponse;
 import iou.api.UserService;
 import iou.models.Person;
@@ -23,19 +25,21 @@ import iou.models.Person;
 @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
 public class FriendsResource {
 
-    private UserService userService;
+    private final FriendService friendService;
+    private final UserService userService;
 
     @Inject
-    public FriendsResource(UserService userService)
+    public FriendsResource(UserService userService, FriendService friendService)
     {
         this.userService = userService;
+        this.friendService = friendService;
     }
 
     @GET
     @UnitOfWork
-    public Set<PersonResponse> list()
+    public Set<FriendResponse> list()
     {
-        return userService.getFriends(2);
+        return friendService.getFriends(2);
     }
 
     @POST

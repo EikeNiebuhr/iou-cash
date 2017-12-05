@@ -4,7 +4,7 @@ database:
   password: ~
   properties:
     hibernate.dialect: org.hibernate.dialect.MariaDBDialect
-    hibernate.hbm2ddl.auto: create
+    hibernate.hbm2ddl.auto: update
   url: "jdbc:mysql://localhost:3306/test2"
   user: root
 logging:

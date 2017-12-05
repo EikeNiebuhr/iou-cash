@@ -33,6 +33,10 @@ public class Person implements Serializable
 	private int id;
 
 	@JsonIgnore
+    @ManyToMany(mappedBy="friends")
+    private Set<Person> userFriends = new HashSet<Person>();
+
+	@JsonIgnore
 	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "person_friends",
