@@ -1,7 +1,7 @@
 # I owe you (IOU)
 
 ### iouClient
-Frontend SPA running @ localhost:499
+Frontend SPA running @ localhost:50010
 
 ### userService
 Backend server with database running @ localhost:50001
