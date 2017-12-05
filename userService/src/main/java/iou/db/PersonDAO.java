@@ -1,11 +1,6 @@
 package iou.db;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
-import com.google.common.base.Optional;
-import iou.models.User;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 
@@ -14,15 +9,11 @@ import io.dropwizard.hibernate.UnitOfWork;
 import iou.models.Person;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
-public class PersonDao extends AbstractDAO<Person> {
+public class PersonDAO extends AbstractDAO<Person> {
 	
-	private EntityManager entityManager;
-
     @Inject
-    public PersonDao(SessionFactory sessionFactory) {
+    public PersonDAO(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 
@@ -48,7 +39,5 @@ public class PersonDao extends AbstractDAO<Person> {
 	
     public Person find(int person_id) {
         return get(person_id);
-//        Query query = entityManager.createNamedQuery("Person.find").setParameter("person_id", person_id);
-//        return (Person) query.getSingleResult();
     }
 }

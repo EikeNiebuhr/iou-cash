@@ -7,8 +7,8 @@ import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import iou.api.UserService;
-import iou.db.DebtDao;
-import iou.db.PersonDao;
+import iou.db.DebtDAO;
+import iou.db.PersonDAO;
 import iou.models.Debt;
 import iou.models.Guest;
 import iou.models.Person;
@@ -44,8 +44,8 @@ public class UserServiceApplication extends Application<UserServiceConfiguration
     @UnitOfWork
 	@Override
 	public void run(final UserServiceConfiguration configuration, Environment environment) throws ClassNotFoundException {
-		final PersonDao personDAO = new PersonDao(hibernate.getSessionFactory());
-		final DebtDao debtDAO = new DebtDao(hibernate.getSessionFactory());
+		final PersonDAO personDAO = new PersonDAO(hibernate.getSessionFactory());
+		final DebtDAO debtDAO = new DebtDAO(hibernate.getSessionFactory());
 		final UserService userService = new UserService(personDAO, debtDAO);
         environment.jersey().register(new PersonResource(personDAO, debtDAO));
         environment.jersey().register(new FriendsResource(userService));
