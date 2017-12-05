@@ -144,7 +144,7 @@ export default {
     paybackMoney: function () {
     },
     moneyInBitcoin: function () {
-      axios.post('http://localhost:3000/', {
+      axios.post('http://locahost:50002/', {
         debt: this.debt.amount,
         date: new Date().now()
       },
