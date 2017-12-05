@@ -30,9 +30,24 @@ public class Person implements Serializable
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
+
 	@JsonIgnore
-	@ManyToMany(mappedBy="friends")
-	private Set<User> userFriends = new HashSet<User>();
+	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "person_friends",
+			joinColumns = { @JoinColumn(name = "person_id") },
+			inverseJoinColumns = { @JoinColumn(name = "friend_id") }
+	)
+	protected Set<Person> friends = new HashSet<Person>();
+
+	@JsonIgnore
+	@OneToMany(mappedBy="debitor", fetch = FetchType.EAGER)
+	protected Set<Debt> debts = new HashSet<Debt>();
+
+	@JsonIgnore
+	@OneToMany(mappedBy="creditor", fetch = FetchType.EAGER)
+	protected Set<Debt> assets = new HashSet<Debt>();
+	
 	protected String firstName;
 	protected String lastName;
 	protected String mailAddress;
@@ -43,6 +58,16 @@ public class Person implements Serializable
 	public Person()
 	{
 		
+	}
+
+	@JsonProperty
+	public int getId() {
+		return id;
+	}
+
+	@JsonProperty
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@JsonProperty
@@ -116,14 +141,51 @@ public class Person implements Serializable
 	{
 		this.location = location;
 	}
-
-	@JsonProperty
-	public int getId() {
-		return id;
+	
+	public Set<Person> getFriends()
+	{
+		return friends;
+	}
+	
+	public void addFriend(Person friend)
+	{
+		assert friend != null;
+		friends.add(friend);
 	}
 
-	@JsonProperty
-	public void setId(int id) {
-		this.id = id;
+	public void removeFriend(Person friend)
+	{
+		assert friends.contains(friend);
+		for (Debt debt: debts)
+		{
+			assert debt.isPayed() || debt.getCreditor() != friend;
+		}
+		for (Debt asset: assets)
+		{
+			assert asset.isPayed() || asset.getDebitor() != friend;
+		}
+		friends.remove(friend);
+	}
+	
+	public Set<Debt> getDebts()
+	{
+		return debts;
+	}
+	
+	public void addDebt(Debt debt)
+	{
+		assert debt != null;
+		debts.add(debt);
+	}
+	
+	public Set<Debt> getAssets()
+	{
+		return assets;
+	}
+	
+	public void addAsset(Debt asset)
+	{
+		assert asset != null;
+		assets.add(asset);
 	}
 }
