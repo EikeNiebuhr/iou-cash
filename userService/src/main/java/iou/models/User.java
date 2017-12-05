@@ -1,7 +1,6 @@
 package iou.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -97,10 +96,17 @@ public class User extends Person implements Serializable
 		friends.add(friend);
 	}
 
-	@JsonProperty
-	public void deleteFriend(Person friend)
+	public void removeFriend(Person friend)
 	{
 		assert friends.contains(friend);
+		for (Debt debt: debts)
+		{
+			assert debt.isPayed() || debt.getCreditor() != friend;
+		}
+		for (Debt asset: assets)
+		{
+			assert asset.isPayed() || asset.getDebitor() != friend;
+		}
 		friends.remove(friend);
 	}
 	
@@ -109,8 +115,20 @@ public class User extends Person implements Serializable
 		return debts;
 	}
 	
+	public void addDebt(Debt debt)
+	{
+		assert debt != null;
+		debts.add(debt);
+	}
+	
 	public Set<Debt> getAssets()
 	{
 		return assets;
+	}
+	
+	public void addAsset(Debt asset)
+	{
+		assert asset != null;
+		assets.add(asset);
 	}
 }

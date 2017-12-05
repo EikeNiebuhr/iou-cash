@@ -1,7 +1,7 @@
 package iou.api;
 
-import iou.db.DebtDao;
-import iou.db.PersonDao;
+import iou.db.DebtDAO;
+import iou.db.PersonDAO;
 import iou.models.Debt;
 import iou.models.Person;
 import iou.models.User;
@@ -11,13 +11,13 @@ import java.util.Set;
 
 public class UserService {
 
-    private PersonDao personDao;
-    private DebtDao debtDao;
+    private PersonDAO personDAO;
+    private DebtDAO debtDAO;
 
-    public UserService(PersonDao personDao, DebtDao debtDao)
+    public UserService(PersonDAO personDAO, DebtDAO debtDAO)
     {
-        this.personDao = personDao;
-        this.debtDao = debtDao;
+        this.personDAO = personDAO;
+        this.debtDAO = debtDAO;
     }
     
     //POST
@@ -26,62 +26,130 @@ public class UserService {
     	Person person = new Person();
     	person.setFirstName(firstName);
     	person.setLastName(lastName);
-    	((User) personDao.find(user_id)).getFriends().add(person);
+    	((User) personDAO.find(user_id)).addFriend(person);
     }
 
-    public void deleteFriend(int user_id, int friend_id)
+    public void addFriend(int user_id, int friend_id)
     {
-    	((User) personDao.find(user_id)).getFriends().remove(personDao.find(friend_id));
+    	((User) personDAO.find(user_id)).addFriend(personDAO.find(friend_id));
+    }
+
+    public void removeFriend(int user_id, int friend_id)
+    {
+    	((User) personDAO.find(user_id)).removeFriend(personDAO.find(friend_id));
     }
 
     public void createDebt(int user_id, int friend_id, double amount)
     {
-    	User user = (User) personDao.find(user_id);
-    	Person friend = personDao.find(friend_id);
+    	User user = (User) personDAO.find(user_id);
+    	Person friend = personDAO.find(friend_id);
     	Debt debt = new Debt(user, friend, amount);
-    	((User) personDao.find(user_id)).getDebts().add(debt);
+    	((User) personDAO.find(user_id)).getDebts().add(debt);
+    }
+
+    public void createAsset(int user_id, int friend_id, double amount)
+    {
+    	User user = (User) personDAO.find(user_id);
+    	Person friend = personDAO.find(friend_id);
+    	Debt asset = new Debt(user, friend, amount);
+    	((User) personDAO.find(user_id)).getAssets().add(asset);
     }
 
     public void payDebt(int debt_id)
     {
-    	debtDao.find(debt_id).pay();
+    	debtDAO.find(debt_id).pay();
     }
 
     //GET
     public Set<Person> getFriends(int user_id)
     {
-    	return ((User) personDao.find(user_id)).getFriends();
+    	return ((User) personDAO.find(user_id)).getFriends();
     }
     
-    public Set<Person> getFriendsWithDebts(int user_id)
+    public Set<Person> getFriendsOfDebts(int user_id)
     {
-    	Set<Debt> debts = ((User) personDao.find(user_id)).getDebts();
     	Set<Person> friends = new HashSet<Person>();
+    	Set<Debt> debts = ((User) personDAO.find(user_id)).getDebts();
     	for (Debt debt: debts)
     	{
-    		friends.add(debt.getDebitor());
+    		friends.add(debt.getCreditor());
+    	}
+    	return friends;
+    }
+    
+    public Set<Person> getFriendsOfOpenDebts(int user_id)
+    {
+    	Set<Person> friends = new HashSet<Person>();
+    	Set<Debt> debts = ((User) personDAO.find(user_id)).getDebts();
+    	for (Debt debt: debts)
+    	{
+    		if (!debt.isPayed())
+    		{
+        		friends.add(debt.getCreditor());
+    		}
     	}
     	return friends;
     }
 
-    public Set<Person> getFriendsWithAssets(int user_id)
+    public Set<Person> getFriendsOfAssets(int user_id)
     {
-    	Set<Debt> debts = ((User) personDao.find(user_id)).getDebts();
     	Set<Person> friends = new HashSet<Person>();
-    	for (Debt debt: debts)
+    	Set<Debt> assets = ((User) personDAO.find(user_id)).getAssets();
+    	for (Debt asset: assets)
     	{
-    		friends.add(debt.getDebitor());
+    		friends.add(asset.getDebitor());
     	}
     	return friends;
     }
 
-    public Set<Person> getFriendsWithDebtsOrAssets(int user_id)
+    public Set<Person> getFriendsOfOpenAssets(int user_id)
     {
-    	Set<Debt> debts = ((User) personDao.find(user_id)).getDebts();
     	Set<Person> friends = new HashSet<Person>();
+    	Set<Debt> assets = ((User) personDAO.find(user_id)).getAssets();
+    	for (Debt asset: assets)
+    	{
+    		if (!asset.isPayed())
+    		{
+        		friends.add(asset.getDebitor());
+    		}
+    	}
+    	return friends;
+    }
+
+    public Set<Person> getFriendsOfDebtsOrAssets(int user_id)
+    {
+    	Set<Person> friends = new HashSet<Person>();
+    	Set<Debt> debts = ((User) personDAO.find(user_id)).getDebts();
     	for (Debt debt: debts)
     	{
-    		friends.add(debt.getDebitor());
+    		friends.add(debt.getCreditor());
+    	}
+    	Set<Debt> assets = ((User) personDAO.find(user_id)).getAssets();
+    	for (Debt asset: assets)
+    	{
+    		friends.add(asset.getDebitor());
+    	}
+    	return friends;
+    }
+
+    public Set<Person> getFriendsOfOpenDebtsOrOpenAssets(int user_id)
+    {
+    	Set<Person> friends = new HashSet<Person>();
+    	Set<Debt> debts = ((User) personDAO.find(user_id)).getDebts();
+    	for (Debt debt: debts)
+    	{
+    		if (!debt.isPayed())
+    		{
+        		friends.add(debt.getCreditor());
+    		}
+    	}
+    	Set<Debt> assets = ((User) personDAO.find(user_id)).getAssets();
+    	for (Debt asset: assets)
+    	{
+    		if (!asset.isPayed())
+    		{
+        		friends.add(asset.getDebitor());
+    		}
     	}
     	return friends;
     }
@@ -89,11 +157,89 @@ public class UserService {
     //include user
     public Set<Debt> getDebts(int user_id)
     {
-    	return ((User) personDao.find(user_id)).getDebts();
+    	return ((User) personDAO.find(user_id)).getDebts();
+    }
+
+    public Set<Debt> getOpenDebts(int user_id)
+    {
+    	Set<Debt> openDebts = new HashSet<Debt>();
+    	Set<Debt> debts = ((User) personDAO.find(user_id)).getDebts();
+    	for (Debt debt: debts)
+    	{
+    		if (!debt.isPayed())
+    		{
+        		openDebts.add(debt);
+    		}
+    	}
+    	return openDebts;
     }
 
     public Set<Debt> getAssets(int user_id)
     {
-    	return ((User) personDao.find(user_id)).getAssets();
+    	return ((User) personDAO.find(user_id)).getAssets();
+    }
+
+    public Set<Debt> getOpenAssets(int user_id)
+    {
+    	Set<Debt> openAssets = new HashSet<Debt>();
+    	Set<Debt> assets = ((User) personDAO.find(user_id)).getAssets();
+    	for (Debt asset: assets)
+    	{
+    		if (!asset.isPayed())
+    		{
+        		openAssets.add(asset);
+    		}
+    	}
+    	return openAssets;
+    }
+
+    public double getTotalDebtAmount(int user_id)
+    {
+    	double totalDebtAmount = 0;
+    	Set<Debt> debts = ((User) personDAO.find(user_id)).getDebts();
+    	for (Debt debt: debts)
+    	{
+    		if (!debt.isPayed())
+    		{
+        		totalDebtAmount += debt.getAmount();
+    		}
+    	}
+    	return totalDebtAmount;
+    }
+
+    public double getTotalAssetAmount(int user_id)
+    {
+    	double totalAssetAmount = 0;
+    	Set<Debt> assets = ((User) personDAO.find(user_id)).getAssets();
+    	for (Debt asset: assets)
+    	{
+    		if (!asset.isPayed())
+    		{
+        		totalAssetAmount += asset.getAmount();
+    		}
+    	}
+    	return totalAssetAmount;
+    }
+
+    public double getTotalAmount(int user_id)
+    {
+    	double totalAmount = 0;
+    	Set<Debt> debts = ((User) personDAO.find(user_id)).getDebts();
+    	for (Debt debt: debts)
+    	{
+    		if (!debt.isPayed())
+    		{
+    			totalAmount -= debt.getAmount();
+    		}
+    	}
+    	Set<Debt> assets = ((User) personDAO.find(user_id)).getAssets();
+    	for (Debt asset: assets)
+    	{
+    		if (!asset.isPayed())
+    		{
+        		totalAmount += asset.getAmount();
+    		}
+    	}
+    	return totalAmount;
     }
 }

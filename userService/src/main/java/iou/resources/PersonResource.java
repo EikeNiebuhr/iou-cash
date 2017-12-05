@@ -2,8 +2,8 @@ package iou.resources;
 
 
 import io.dropwizard.hibernate.UnitOfWork;
-import iou.db.DebtDao;
-import iou.db.PersonDao;
+import iou.db.DebtDAO;
+import iou.db.PersonDAO;
 import iou.models.Debt;
 import iou.models.Person;
 import iou.models.User;
@@ -18,10 +18,10 @@ import java.util.Optional;
 @Produces(MediaType.APPLICATION_JSON)
 public class PersonResource {
 
-    private PersonDao personDao;
-    private DebtDao debtDao;
+    private PersonDAO personDao;
+    private DebtDAO debtDao;
 
-    public PersonResource(PersonDao personDao, DebtDao debtDao) {
+    public PersonResource(PersonDAO personDao, DebtDAO debtDao) {
         this.personDao = personDao;
         this.debtDao = debtDao;
     }

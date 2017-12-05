@@ -7,9 +7,10 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.NamedQuery;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "Debt")
-@NamedQuery(name = "Debt.find", query = "SELECT debt FROM Debt debt WHERE id = :debt_id")
 @NamedQuery(name = "Debt.findAll", query = "SELECT debt FROM Debt debt")
 public class Debt implements Serializable {
 
@@ -30,45 +31,48 @@ public class Debt implements Serializable {
     private boolean isPayed = false;
 
     public Debt(Person creditor, Person debitor, double amount) {
+        assert creditor != null && debitor != null && amount > 0;
         this.creditor = creditor;
         this.debitor = debitor;
-        assert creditor != null && debitor != null && amount > 0;
         this.amount = amount;
         date = new Date(System.currentTimeMillis());
-    }
-
-    public static void createDebt() {
-
     }
 
     public void pay() {
         isPayed = true;
     }
 
+	@JsonProperty
     public double getAmount() {
         return amount;
     }
 
+	@JsonProperty
     public Date getDate() {
         return date;
     }
 
-    public boolean getPayed() {
+	@JsonProperty
+    public boolean isPayed() {
         return isPayed;
     }
 
+	@JsonProperty
     public Person getDebitor() {
         return debitor;
     }
 
+	@JsonProperty
     public void setDebitor(Person debitor) {
         this.debitor = debitor;
     }
 
+	@JsonProperty
     public Person getCreditor() {
         return creditor;
     }
 
+	@JsonProperty
     public void setCreditor(Person creditor) {
         this.creditor = creditor;
     }

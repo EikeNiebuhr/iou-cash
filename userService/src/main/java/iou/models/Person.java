@@ -18,7 +18,6 @@ import org.hibernate.annotations.NamedQuery;
 		discriminatorType=DiscriminatorType.STRING
 )
 
-@NamedQuery(name="Person.find", query="SELECT person FROM Person person WHERE id = :person_id") 
 @NamedQuery(name="Person.findAll", query="SELECT person FROM Person person") 
 public class Person implements Serializable
 {
