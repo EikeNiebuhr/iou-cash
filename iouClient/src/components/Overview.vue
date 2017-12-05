@@ -48,7 +48,13 @@ export default {
   },
   methods: {
     fetchFriendsData: function () {
-      axios.get('http://localhost:3000/friends/').then(
+      axios.get('http://localhost:50012/friends/', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+      }).then(
         response => {
           this.$root.friendsGlobal = response.data
           this.notifications.push({
@@ -68,9 +74,11 @@ export default {
       var index = finder(this.$root.friendsGlobal, x => x.id === id)
       console.log(id)
       console.log(index)
-      axios.delete('http://localhost:3000/friends/' + id, {
+      axios.delete('http://localhost:50012/friends/' + id, {
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
         }
       }).then(response => {
         console.log(response)

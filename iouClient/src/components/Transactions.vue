@@ -98,11 +98,10 @@ export default {
   },
   created: function () {
     this.fetchFriendsData()
-    this.friendAndDebt()
   },
   methods: {
     fetchFriendsData: function () {
-      axios.get('http://localhost:3000/friends').then(
+      axios.get('http://localhost:50012/friends').then(
         response => {
           this.$root.friendsGlobal = response.data
           this.allFriends = this.$root.friendsGlobal
@@ -125,6 +124,7 @@ export default {
     },
     lendMoney: function () {
       axios.post('/addDebt', this.friend, {
+        id: this.friend.id,
         name: this.friend.name,
         amount: this.amount
       },

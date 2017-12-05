@@ -4,11 +4,22 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.NamedQuery;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.NamedQuery;
 
 @Entity
 @Table(name="Person")
@@ -33,6 +44,7 @@ public class Person implements Serializable
 	@JsonIgnore
 	@ManyToMany(mappedBy="friends")
 	private Set<User> userFriends = new HashSet<User>();
+	@JsonProperty("name")
 	protected String firstName;
 	protected String lastName;
 	protected String mailAddress;
@@ -43,6 +55,10 @@ public class Person implements Serializable
 	public Person()
 	{
 		
+	}
+	
+	public Person(String firstName) {
+		this.firstName = firstName;
 	}
 
 	@JsonProperty
