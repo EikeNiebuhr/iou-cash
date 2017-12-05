@@ -27,8 +27,9 @@ public class UserService {
     	person.setFirstName(firstName);
     	person.setLastName(lastName);
     	personDAO.createOrUpdate(person);
-    	((User) personDAO.find(user_id)).addFriend(person);
-    	personDAO.createOrUpdate((User) personDAO.find(user_id));
+    	User user = (User) personDAO.find(user_id);
+    	user.addFriend(person);
+    	personDAO.createOrUpdate(user);
     }
 
     public void addFriend(int user_id, int friend_id)
@@ -47,6 +48,7 @@ public class UserService {
     	Person friend = personDAO.find(friend_id);
     	Debt debt = new Debt(user, friend, amount);
     	((User) personDAO.find(user_id)).getDebts().add(debt);
+    	debtDAO.createOrUpdate(debt);
     }
 
     public void createAsset(int user_id, int friend_id, double amount)
@@ -55,11 +57,14 @@ public class UserService {
     	Person friend = personDAO.find(friend_id);
     	Debt asset = new Debt(user, friend, amount);
     	((User) personDAO.find(user_id)).getAssets().add(asset);
+    	debtDAO.createOrUpdate(asset);
     }
 
     public void payDebt(int debt_id)
     {
-    	debtDAO.find(debt_id).pay();
+    	Debt debt = debtDAO.find(debt_id);
+    	debt.pay();
+    	debtDAO.createOrUpdate(debt);
     }
 
     //GET
