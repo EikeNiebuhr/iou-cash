@@ -34,4 +34,9 @@ public class DebtDAO extends AbstractDAO<Debt> {
     public Debt find(int debt_id) {
     	return get(debt_id);
     }
+
+
+	public void delete(Debt debt) {
+		currentSession().delete(debt);
+	}
 }

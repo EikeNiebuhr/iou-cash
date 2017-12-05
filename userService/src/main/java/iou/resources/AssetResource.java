@@ -2,8 +2,8 @@ package iou.resources;
 
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.PATCH;
+import iou.api.AssetService;
 import iou.api.DebtResponse;
-import iou.api.DebtService;
 import iou.api.UserService;
 import iou.models.Debt;
 
@@ -14,25 +14,25 @@ import javax.ws.rs.core.Response;
 import java.util.Set;
 
 @Produces(MediaType.APPLICATION_JSON)
-@Path("/debts")
-public class DebtResource {
+@Path("/assets")
+public class AssetResource {
 
     private UserService userService;
-    private DebtService debtService;
+    private AssetService assetService;
 
     @Inject
-    public DebtResource(UserService userService, DebtService debtService)
+    public AssetResource(UserService userService, AssetService assetService)
     {
         this.userService = userService;
-        this.debtService = debtService;
+        this.assetService = assetService;
     }
 
     @POST
     @UnitOfWork
-    public Response create(Debt debt)
+    public Response create(Debt asset)
     {
         try {
-            debtService.update(debt);
+            assetService.update(asset);
             return Response.ok().build();
         } catch (Exception e) {
             return Response.serverError().build();
@@ -41,10 +41,10 @@ public class DebtResource {
 
     @PATCH
     @UnitOfWork
-    public Response update(Debt debt)
+    public Response update(Debt asset)
     {
         try {
-            debtService.update(debt);
+            assetService.update(asset);
             return Response.ok().build();
         } catch (Exception e) {
             return Response.serverError().build();
@@ -56,15 +56,15 @@ public class DebtResource {
     @UnitOfWork
     public Set<DebtResponse> list()
     {
-        return this.debtService.getDebts(2);
+        return this.assetService.getAssets(2);
     }
 
     @DELETE
     @UnitOfWork
-    public Response delete(Debt debt)
+    public Response delete(Debt asset)
     {
         try {
-            debtService.delete(debt);
+            assetService.delete(asset);
             return Response.ok().build();
         } catch (Exception e) {
             return Response.serverError().build();

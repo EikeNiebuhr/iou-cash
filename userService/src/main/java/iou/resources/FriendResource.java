@@ -21,13 +21,13 @@ import org.glassfish.jersey.server.Uri;
 @Path("/friends")
 @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
 //@Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
-public class FriendsResource {
+public class FriendResource {
 
     private final FriendService friendService;
     private final UserService userService;
 
     @Inject
-    public FriendsResource(UserService userService, FriendService friendService) {
+    public FriendResource(UserService userService, FriendService friendService) {
         this.userService = userService;
         this.friendService = friendService;
     }
@@ -56,7 +56,7 @@ public class FriendsResource {
         friendService.update(p);
         UriBuilder builder = uriInfo.getBaseUriBuilder();
         builder.path(Integer.toString(p.getId()));
-        return Response.created(builder.build()).build(
+        return Response.ok(builder.build()).build(
         );
     }
 

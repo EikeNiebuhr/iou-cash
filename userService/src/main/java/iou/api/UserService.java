@@ -39,14 +39,7 @@ public class UserService {
     	//((User) personDAO.find(user_id)).removeFriend(personDAO.find(friend_id));
     }
 
-    public void createDebt(int user_id, int friend_id, double amount)
-    {
-    	User user = (User) personDAO.find(user_id);
-    	Person friend = personDAO.find(friend_id);
-    	Debt debt = new Debt(user, friend, amount);
-    	((User) personDAO.find(user_id)).getDebts().add(debt);
-    	debtDAO.createOrUpdate(debt);
-    }
+
 
     public void createAsset(int user_id, int friend_id, double amount)
     {
@@ -164,33 +157,6 @@ public class UserService {
     	return friends;
     }
 
-    //include user
-    public Set<DebtResponse> getDebts(int user_id)
-    {
-
-        Set<Debt> set =  ((User) personDAO.find(user_id)).getDebts();
-        Set<DebtResponse> newSet = new HashSet<>();
-        for (Debt item : set
-                ) {
-            newSet.add(new DebtResponse(item));
-        }
-        return newSet;
-    }
-
-    public Set<Debt> getOpenDebts(int user_id)
-    {
-    	Set<Debt> openDebts = new HashSet<Debt>();
-    	Set<Debt> debts = ((User) personDAO.find(user_id)).getDebts();
-    	for (Debt debt: debts)
-    	{
-    		if (!debt.isPayed())
-    		{
-        		openDebts.add(debt);
-    		}
-    	}
-    	return openDebts;
-    }
-
     public Set<Debt> getAssets(int user_id)
     {
     	return ((User) personDAO.find(user_id)).getAssets();
@@ -210,19 +176,7 @@ public class UserService {
     	return openAssets;
     }
 
-    public double getTotalDebtAmount(int user_id)
-    {
-    	double totalDebtAmount = 0;
-    	Set<Debt> debts = ((User) personDAO.find(user_id)).getDebts();
-    	for (Debt debt: debts)
-    	{
-    		if (!debt.isPayed())
-    		{
-        		totalDebtAmount += debt.getAmount();
-    		}
-    	}
-    	return totalDebtAmount;
-    }
+
 
     public double getTotalAssetAmount(int user_id)
     {
