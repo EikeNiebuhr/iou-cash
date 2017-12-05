@@ -4,17 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.NamedQuery;
 
@@ -43,7 +33,6 @@ public class Person implements Serializable
 	private int id;
 
 	@JsonIgnore
-<<<<<<< HEAD
 	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "person_friends",
@@ -60,11 +49,9 @@ public class Person implements Serializable
 	@OneToMany(mappedBy="creditor", fetch = FetchType.EAGER)
 	protected Set<Debt> assets = new HashSet<Debt>();
 	
-=======
 	@ManyToMany(mappedBy="friends")
 	private Set<User> userFriends = new HashSet<User>();
 	@JsonProperty("name")
->>>>>>> branch 'master' of https://github.com/EikeNiebuhr/iou-cash
 	protected String firstName;
 	protected String lastName;
 	protected String mailAddress;

@@ -1,13 +1,13 @@
 package iou.api;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import iou.db.DebtDAO;
 import iou.db.PersonDAO;
 import iou.models.Debt;
 import iou.models.Person;
 import iou.models.User;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class UserService {
 

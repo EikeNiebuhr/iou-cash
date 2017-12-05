@@ -25,7 +25,7 @@
     <footer class="modal-card-foot">
       <button class="button is-success" @click.prevent="addFriend">Save changes</button>
       <button class="button" @click="$modal.hide('createFriend')" v-on:click="clearAll">Close</button>
-      <button class="button" @click="$modal.hide('createFriend')" v-on:click="clearAll">Cancel</button>
+      <button class="button" @click="$modal.hide('createFriend')" v-on:click="clearAll" :disabled="isDisabled">Cancel</button>
     </footer>
     </div>
  </modal>
@@ -57,9 +57,11 @@ export default {
         })
         return false
       }
-      axios.post('http://localhost:3000/friends/', this.friend, {
+      axios.post('http://localhost:50012/friends/', {name: this.friend.name}, {
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
         }
       }).then(response => {
         console.log(response)
