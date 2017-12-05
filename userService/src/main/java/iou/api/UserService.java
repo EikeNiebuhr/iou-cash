@@ -26,7 +26,9 @@ public class UserService {
     	Person person = new Person();
     	person.setFirstName(firstName);
     	person.setLastName(lastName);
+    	personDAO.createOrUpdate(person);
     	((User) personDAO.find(user_id)).addFriend(person);
+    	personDAO.createOrUpdate((User) personDAO.find(user_id));
     }
 
     public void addFriend(int user_id, int friend_id)
@@ -161,9 +163,16 @@ public class UserService {
     }
 
     //include user
-    public Set<Debt> getDebts(int user_id)
+    public Set<DebtResponse> getDebts(int user_id)
     {
-    	return ((User) personDAO.find(user_id)).getDebts();
+
+        Set<Debt> set =  ((User) personDAO.find(user_id)).getDebts();
+        Set<DebtResponse> newSet = new HashSet<>();
+        for (Debt item : set
+                ) {
+            newSet.add(new DebtResponse(item));
+        }
+        return newSet;
     }
 
     public Set<Debt> getOpenDebts(int user_id)

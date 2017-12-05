@@ -13,6 +13,7 @@ import iou.models.Debt;
 import iou.models.Guest;
 import iou.models.Person;
 import iou.models.User;
+import iou.resources.DebtResource;
 import iou.resources.PersonResource;
 import iou.resources.FriendsResource;
 
@@ -49,6 +50,7 @@ public class UserServiceApplication extends Application<UserServiceConfiguration
 		final UserService userService = new UserService(personDAO, debtDAO);
         environment.jersey().register(new PersonResource(personDAO, debtDAO));
         environment.jersey().register(new FriendsResource(userService));
+        environment.jersey().register(new DebtResource(userService));
 	}
 
 }

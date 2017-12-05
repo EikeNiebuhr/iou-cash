@@ -38,6 +38,11 @@ public class Debt implements Serializable {
         date = new Date(System.currentTimeMillis());
     }
 
+    public Debt()
+    {
+
+    }
+
     public void pay() {
         isPayed = true;
     }
@@ -75,5 +80,9 @@ public class Debt implements Serializable {
 	@JsonProperty
     public void setCreditor(Person creditor) {
         this.creditor = creditor;
+    }
+
+    public int getId() {
+        return id;
     }
 }

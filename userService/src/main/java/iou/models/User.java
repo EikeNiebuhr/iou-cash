@@ -33,11 +33,11 @@ public class User extends Person implements Serializable
 	private Set<Person> friends = new HashSet<Person>();
 
 	@JsonIgnore
-	@OneToMany(mappedBy="debitor")
+	@OneToMany(mappedBy="debitor", fetch = FetchType.EAGER)
     private Set<Debt> debts = new HashSet<Debt>();
 
 	@JsonIgnore
-	@OneToMany(mappedBy="creditor")
+	@OneToMany(mappedBy="creditor", fetch = FetchType.EAGER)
     private Set<Debt> assets = new HashSet<Debt>();
 
 	public User() {

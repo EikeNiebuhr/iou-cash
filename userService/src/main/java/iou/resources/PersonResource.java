@@ -40,6 +40,8 @@ public class PersonResource {
         personDao.createOrUpdate(u);
         Debt d = new Debt(u, p, 10);
         debtDao.createOrUpdate(d);
+        Debt de = new Debt(p, u, 100);
+        debtDao.createOrUpdate(de);
         return "WHOOP";
     }
 
