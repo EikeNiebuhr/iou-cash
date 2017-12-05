@@ -49,8 +49,6 @@ public class Person implements Serializable
 	@OneToMany(mappedBy="creditor", fetch = FetchType.EAGER)
 	protected Set<Debt> assets = new HashSet<Debt>();
 	
-	@ManyToMany(mappedBy="friends")
-	private Set<User> userFriends = new HashSet<User>();
 	@JsonProperty("name")
 	protected String firstName;
 	protected String lastName;
