@@ -262,4 +262,57 @@ public class UserService {
     	}
     	return totalAmount;
     }
+
+    public double getTotalDebtAmount(int user_id, int friend_id)
+    {
+    	double totalDebtAmount = 0;
+    	Person friend = personDAO.find(friend_id);
+    	Set<Debt> debts = ((User) personDAO.find(user_id)).getDebts();
+    	for (Debt debt: debts)
+    	{
+    		if (debt.getCreditor() == friend && !debt.isPayed())
+    		{
+        		totalDebtAmount += debt.getAmount();
+    		}
+    	}
+    	return totalDebtAmount;
+    }
+
+    public double getTotalAssetAmount(int user_id, int friend_id)
+    {
+    	double totalAssetAmount = 0;
+    	Person friend = personDAO.find(friend_id);
+    	Set<Debt> assets = ((User) personDAO.find(user_id)).getAssets();
+    	for (Debt asset: assets)
+    	{
+    		if (asset.getDebitor() == friend && !asset.isPayed())
+    		{
+        		totalAssetAmount += asset.getAmount();
+    		}
+    	}
+    	return totalAssetAmount;
+    }
+
+    public double getTotalAmount(int user_id, int friend_id)
+    {
+    	double totalAmount = 0;
+    	Person friend = personDAO.find(friend_id);
+    	Set<Debt> debts = ((User) personDAO.find(user_id)).getDebts();
+    	for (Debt debt: debts)
+    	{
+    		if (debt.getCreditor() == friend && !debt.isPayed())
+    		{
+        		totalAmount += debt.getAmount();
+    		}
+    	}
+    	Set<Debt> assets = ((User) personDAO.find(user_id)).getAssets();
+    	for (Debt asset: assets)
+    	{
+    		if (asset.getDebitor() == friend && !asset.isPayed())
+    		{
+        		totalAmount += asset.getAmount();
+    		}
+    	}
+    	return totalAmount;
+    }
 }
