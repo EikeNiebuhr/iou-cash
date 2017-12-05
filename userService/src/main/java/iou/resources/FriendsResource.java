@@ -1,6 +1,7 @@
 package iou.resources;
 
 import io.dropwizard.hibernate.UnitOfWork;
+import iou.api.PersonResponse;
 import iou.api.UserService;
 import iou.models.Person;
 
@@ -25,7 +26,7 @@ public class FriendsResource {
 
     @GET
     @UnitOfWork
-    public Set<Person> list()
+    public Set<PersonResponse> list()
     {
         return userService.getFriends(2);
     }

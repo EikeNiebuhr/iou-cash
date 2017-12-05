@@ -61,9 +61,15 @@ public class UserService {
     }
 
     //GET
-    public Set<Person> getFriends(int user_id)
+    public Set<PersonResponse> getFriends(int user_id)
     {
-    	return ((User) personDAO.find(user_id)).getFriends();
+    	Set<Person> set =  ((User) personDAO.find(user_id)).getFriends();
+    	Set<PersonResponse> newSet = new HashSet<>();
+        for (Person item : set
+             ) {
+            newSet.add(new PersonResponse(item));
+        }
+        return newSet;
     }
     
     public Set<Person> getFriendsOfDebts(int user_id)
