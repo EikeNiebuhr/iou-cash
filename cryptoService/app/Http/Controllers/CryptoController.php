@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 class CryptoController extends Controller
 {
+  public function index()
+  {
+    return 'Hi there.';
+  }
+
   public function convert( $amount )
   {
     $btc = file_get_contents( "https://blockchain.info/tobtc?currency=EUR&value=$amount" );
@@ -43,8 +48,8 @@ class CryptoController extends Controller
     $btcRange = [];
     foreach( $bpi as $date => $btcPrice ) {
       $btcRange[] = [
-        'time'  => \DateTime::createFromFormat( 'Y-m-d', $date )->getTimestamp(),
         'value' => $amount / $btcPrice,
+        'time'  => \DateTime::createFromFormat( 'Y-m-d', $date )->getTimestamp(),
       ];
     }
 
