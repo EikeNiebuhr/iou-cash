@@ -44,9 +44,9 @@ public class PersonResource {
         User u = new User();
         u.setFirstName("User");
         u.setLastName("Resu");
-        u.addFriend(p);
-        u.addFriend(n);
-        u.addFriend(l);
+        u.getFriends().add(p);
+        u.getFriends().add(n);
+        u.getFriends().add(l);
         personDao.createOrUpdate(u);
         Debt d = new Debt(u, p, 10);
         debtDao.createOrUpdate(d);

@@ -21,25 +21,22 @@ public class UserService {
     }
     
     //POST
-    public void createFriend(int user_id, String firstName, String lastName)
+    public void createFriend(int user_id, Person person)
     {
-    	Person person = new Person();
-    	person.setFirstName(firstName);
-    	person.setLastName(lastName);
     	personDAO.createOrUpdate(person);
     	User user = (User) personDAO.find(user_id);
-    	user.addFriend(person);
+    	user.getFriends().add(person);
     	personDAO.createOrUpdate(user);
     }
 
     public void addFriend(int user_id, int friend_id)
     {
-    	((User) personDAO.find(user_id)).addFriend(personDAO.find(friend_id));
+    	//((User) personDAO.find(user_id)).addFriend(personDAO.find(friend_id));
     }
 
     public void removeFriend(int user_id, int friend_id)
     {
-    	((User) personDAO.find(user_id)).removeFriend(personDAO.find(friend_id));
+    	//((User) personDAO.find(user_id)).removeFriend(personDAO.find(friend_id));
     }
 
     public void createDebt(int user_id, int friend_id, double amount)
