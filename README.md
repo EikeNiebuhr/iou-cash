@@ -4,7 +4,7 @@
 Frontend SPA running @ localhost:50010
 
 ### userService
-Backend server with database running @ localhost:50001
+Backend server with database running @ localhost:50012
 
 SQL-Database running @ localhost:50004
 
