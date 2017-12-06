@@ -20,6 +20,10 @@ public class FriendResponse {
     {
         this.id = p.getId();
         this.name = p.getFirstName()+" "+p.getLastName();
+        for (Debt asset : p.getAssets())
+        {
+            this.totalAsset+=asset.getAmount();
+        }
         for (Debt item:p.getDebts()
              ) {
             this.totalDebt+=item.getAmount();

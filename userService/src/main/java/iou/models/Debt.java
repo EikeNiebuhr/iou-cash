@@ -35,7 +35,7 @@ public class Debt implements Serializable {
         this.creditor = creditor;
         this.debitor = debitor;
         this.amount = amount;
-        date = new Date();
+        this.date = new Date();
     }
 
     public Debt()
