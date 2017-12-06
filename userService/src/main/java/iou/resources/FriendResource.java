@@ -52,7 +52,9 @@ public class FriendResource {
     @PATCH
     @UnitOfWork
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(Person p, @Context UriInfo uriInfo) {
+    @Path("{id}")
+    public Response update(@PathParam("id") int id, @Context UriInfo uriInfo) {
+        Person p = userService.find(id);
         friendService.update(p);
         UriBuilder builder = uriInfo.getBaseUriBuilder();
         builder.path(Integer.toString(p.getId()));
@@ -63,8 +65,10 @@ public class FriendResource {
     @DELETE
     @UnitOfWork
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response delete(Person p) {
+    @Path("{id}")
+    public Response delete(@PathParam("id") int id) {
         try {
+            Person p = userService.find(id);
             friendService.remove(p);
             return Response.ok().build();
         } catch (Exception e) {

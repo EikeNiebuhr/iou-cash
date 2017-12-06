@@ -76,5 +76,8 @@ public class DebtService {
         }
         return totalDebtAmount;
     }
-	
+
+    public Debt find(int id) {
+        return debtDAO.find(id);
+    }
 }

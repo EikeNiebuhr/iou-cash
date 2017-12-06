@@ -41,9 +41,11 @@ public class DebtResource {
 
     @PATCH
     @UnitOfWork
-    public Response update(Debt debt)
+    @Path("{id}")
+    public Response update(@PathParam("id") int id)
     {
         try {
+            Debt debt = debtService.find(id);
             debtService.update(debt);
             return Response.ok().build();
         } catch (Exception e) {
@@ -61,9 +63,11 @@ public class DebtResource {
 
     @DELETE
     @UnitOfWork
-    public Response delete(Debt debt)
+    @Path("{id}")
+    public Response delete(@PathParam("id") int id)
     {
         try {
+            Debt debt = debtService.find(id);
             debtService.delete(debt);
             return Response.ok().build();
         } catch (Exception e) {

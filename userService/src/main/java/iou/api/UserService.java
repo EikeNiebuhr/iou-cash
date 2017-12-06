@@ -19,6 +19,11 @@ public class UserService {
         this.personDAO = personDAO;
         this.debtDAO = debtDAO;
     }
+
+    public Person find(int id)
+	{
+		return personDAO.find(id);
+	}
     
     //POST
     public void createFriend(int user_id, Person person)
