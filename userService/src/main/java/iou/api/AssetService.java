@@ -49,4 +49,8 @@ public class AssetService {
         }
         return newSet;
     }
+
+    public Debt find(int id) {
+        return debtDAO.find(id);
+    }
 }

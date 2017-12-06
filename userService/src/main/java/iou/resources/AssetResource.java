@@ -41,9 +41,11 @@ public class AssetResource {
 
     @PATCH
     @UnitOfWork
-    public Response update(Debt asset)
+    @Path("{id}")
+    public Response update(@PathParam("id") int id)
     {
         try {
+            Debt asset = assetService.find(id);
             assetService.update(asset);
             return Response.ok().build();
         } catch (Exception e) {
@@ -61,9 +63,11 @@ public class AssetResource {
 
     @DELETE
     @UnitOfWork
-    public Response delete(Debt asset)
+    @Path("{id}")
+    public Response delete(@PathParam("id") int id)
     {
         try {
+            Debt asset = assetService.find(id);
             assetService.delete(asset);
             return Response.ok().build();
         } catch (Exception e) {
