@@ -11,14 +11,14 @@
           <article class="tile is-child box" v-for="friend in sortedFriends" :key="friend.id">
             <button class="delete is-pulled-right" aria-label="close" @click.prevent="deleteFriend(friend.id)"></button>
             <p class="title">{{ friend.name }}</p>
-            <p class="positive">{{ friend.totalpositive }} €</p>
-            <p class="negative">{{ friend.totalnegative }} €</p>
+            <p class="positive">{{ friend.totalAsset }} €</p>
+            <p class="negative">{{ friend.totalDebt }} €</p>
           </article>
             </div>
       </div>
     </div>
   </section>
-  <button id="add-friend" @click="show" class="button is-info" aria-hidden="true"><i class="fa fa-user-plus" aria-hidden="true"> Friend</i></button>
+  <button id="add-friend" @click="show" class="button is-large is-info is-pulled-right" aria-hidden="true"><i class="fa fa-user-plus" aria-hidden="true"> Friend</i></button>
   <createFriend></createFriend>
 </div>
 </template>
@@ -59,7 +59,7 @@ export default {
           this.$root.friendsGlobal = response.data
           this.notifications.push({
             type: 'success',
-            message: 'All good! Last succesful update at ' + new Date().toLocaleString()
+            message: 'All good! Last succesful update at ' + new Date().toLocaleTimeString()
           })
           console.log(response)
         }).catch(e => {
@@ -71,9 +71,7 @@ export default {
       this.$modal.show('createFriend')
     },
     deleteFriend: function (id) {
-      var index = finder(this.$root.friendsGlobal, x => x.id === id)
-      console.log(id)
-      console.log(index)
+      let index = finder(this.$root.friendsGlobal, x => x.id === id)
       axios.delete('http://localhost:50012/friends/' + id, {
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +82,7 @@ export default {
         console.log(response)
         this.notifications.push({
           type: 'success',
-          message: 'Friend ' + response.data + id + index + ' succesfully removed!'})
+          message: 'Friend nr ' + id + ' succesfully removed!'})
         this.$root.friendsGlobal.splice(index, 1)
       }).catch(e => {
         this.notifications.push(e)

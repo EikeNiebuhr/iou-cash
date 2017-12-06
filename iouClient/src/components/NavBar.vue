@@ -2,30 +2,30 @@
 <div id='navbar'>
   <nav class="level">
     <div class="level-left">
-    <a id="logo" class="navbar-item" href="">
-      <img src="../assets/logo.png" alt="IOU-Cash: a quick money transfer app">
-    </a>
-  </div>
-  <div class="level-item">
-        <h1 id="main-title" class="has-text-weight-semibold">IOU CASH</h1>
-      </div>
+      <a id="logo" class="navbar-item" href="">
+        <img src="../assets/logo.png" alt="IOU-Cash: a quick money transfer app">
+      </a>
+    </div>
+    <div class="level-item">
+      <h1 id="main-title" class="has-text-weight-semibold">IOU CASH</h1>
+    </div>
     <div class="navbar-end">
-          <div class="level-item has-text-centered">
-      <div class="field has-addons">
-  <div class="control">
-    <input class="input" type="text" v-model="$root.searchWordGlobal" placeholder="Search friends">
-  </div>
-  </div>
-  </div>
-    <div class="level-item has-text-centered">
+      <div class="level-item has-text-centered">
+        <div class="field has-addons">
+          <div class="control">
+            <input class="input" type="text" v-model="$root.searchWordGlobal" placeholder="Search friends">
+          </div>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
         <a class="link is-info" href="#">
-           <span class="icon"><i class="fa fa-user"></i></span>
+          <span class="icon"><i class="fa fa-user"></i></span>
         </a>
         <a class="link is-info" href="#">
-           <span class="icon"><i class="fa fa-sign-out"></i></span>
+          <span class="icon"><i class="fa fa-sign-out"></i></span>
         </a>
       </div>
-</div>
+    </div>
   </nav>
 </div>
 </template>
@@ -57,5 +57,8 @@ h2 {
 }
 #navbar {
   background-color: #F5F5F5;
+}
+.level {
+  margin-bottom: 30px;
 }
 </style>

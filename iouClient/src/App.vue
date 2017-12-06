@@ -1,17 +1,17 @@
 <template>
 <div id="app">
   <div class="container">
-  <navbar></navbar>
-  <div class="columns">
-    <div class="column is-2">
-    <sidebar></sidebar>
+    <navbar></navbar>
+    <div class="columns">
+      <div class="column is-2">
+        <sidebar></sidebar>
+      </div>
+      <div class="column">
+        <router-view></router-view>
+      </div>
     </div>
-    <div class="column">
-    <router-view></router-view>
-    </div>
-    </div>
-  <footerbar></footerbar>
-</div>
+    <footerbar></footerbar>
+  </div>
 </div>
 </template>
 <script>
@@ -36,7 +36,6 @@ export default {
   name: 'app'
 }
 </script>
-
-  <style lang="sass">
+<style lang="sass">
   @import '~bulma'
 </style>
