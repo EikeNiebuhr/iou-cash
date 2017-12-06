@@ -3,7 +3,7 @@
  * @var \Laravel\Lumen\Routing\Router $router
  */
 
-$router->get( '/', 'CryptoController@index' );
-$router->get( '{amount}', 'CryptoController@convert' );
-$router->get( '{timestamp}/{amount}', 'CryptoController@convertByDate' );
-$router->get( '{timestampFrom}/{timestampTo}/{amount}', 'CryptoController@convertInRange' );
+$router->get( '/', 'ApiController@index' );
+$router->get( '{amount}', 'ApiController@convert' );
+$router->get( '{timestamp}/{amount}', 'ApiController@convertByDate' );
+$router->get( '{timestampFrom}/{timestampTo}/{amount}', 'ApiController@convertInRange' );
