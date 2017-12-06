@@ -74,4 +74,12 @@ public class AssetResource {
             return Response.serverError().build();
         }
     }
+
+    @GET
+    @UnitOfWork
+    @Path("/total")
+    public double getTotal()
+    {
+        return debtService.getTotalAssetAmount(2);
+    }
 }
