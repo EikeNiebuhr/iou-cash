@@ -42,7 +42,7 @@ public class FriendResource {
     @UnitOfWork
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(Person p, @Context UriInfo uriInfo) {
-        userService.createFriend(2, p);
+        friendService.createFriend(2, p);
         UriBuilder builder = uriInfo.getBaseUriBuilder();
         builder.path(Integer.toString(p.getId()));
         return Response.created(builder.build()).build(

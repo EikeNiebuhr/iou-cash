@@ -2,9 +2,8 @@ package iou.resources;
 
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.PATCH;
-import iou.api.AssetResponse;
-import iou.api.AssetService;
 import iou.api.DebtResponse;
+import iou.api.DebtService;
 import iou.api.UserService;
 import iou.models.Debt;
 
@@ -19,13 +18,13 @@ import java.util.Set;
 public class AssetResource {
 
     private UserService userService;
-    private AssetService assetService;
+    private DebtService debtService;
 
     @Inject
-    public AssetResource(UserService userService, AssetService assetService)
+    public AssetResource(UserService userService, DebtService debtService)
     {
         this.userService = userService;
-        this.assetService = assetService;
+        this.debtService = debtService;
     }
 
     @POST
@@ -33,7 +32,7 @@ public class AssetResource {
     public Response create(Debt asset)
     {
         try {
-            assetService.update(asset);
+            debtService.update(asset);
             return Response.ok().build();
         } catch (Exception e) {
             return Response.serverError().build();
@@ -46,8 +45,8 @@ public class AssetResource {
     public Response update(@PathParam("id") int id)
     {
         try {
-            Debt asset = assetService.find(id);
-            assetService.update(asset);
+            Debt asset = debtService.find(id);
+            debtService.update(asset);
             return Response.ok().build();
         } catch (Exception e) {
             return Response.serverError().build();
@@ -57,9 +56,9 @@ public class AssetResource {
 
     @GET
     @UnitOfWork
-    public Set<AssetResponse> list()
+    public Set<DebtResponse> list()
     {
-        return this.assetService.getAssets(2);
+        return this.debtService.getAssets(2);
     }
 
     @DELETE
@@ -68,8 +67,8 @@ public class AssetResource {
     public Response delete(@PathParam("id") int id)
     {
         try {
-            Debt asset = assetService.find(id);
-            assetService.delete(asset);
+            Debt asset = debtService.find(id);
+            debtService.delete(asset);
             return Response.ok().build();
         } catch (Exception e) {
             return Response.serverError().build();
