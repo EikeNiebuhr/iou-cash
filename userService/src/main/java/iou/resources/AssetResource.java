@@ -2,6 +2,7 @@ package iou.resources;
 
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.PATCH;
+import iou.api.AssetResponse;
 import iou.api.AssetService;
 import iou.api.DebtResponse;
 import iou.api.UserService;
@@ -56,7 +57,7 @@ public class AssetResource {
 
     @GET
     @UnitOfWork
-    public Set<DebtResponse> list()
+    public Set<AssetResponse> list()
     {
         return this.assetService.getAssets(2);
     }

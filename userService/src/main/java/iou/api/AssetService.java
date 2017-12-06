@@ -39,13 +39,13 @@ public class AssetService {
         debtDAO.createOrUpdate(debt);
     }
 
-    public Set<DebtResponse> getAssets(int user_id)
+    public Set<AssetResponse> getAssets(int user_id)
     {
         Set<Debt> set =  ((User) personDAO.find(user_id)).getAssets();
-        Set<DebtResponse> newSet = new HashSet<>();
+        Set<AssetResponse> newSet = new HashSet<>();
         for (Debt item : set
                 ) {
-            newSet.add(new DebtResponse(item));
+            newSet.add(new AssetResponse(item));
         }
         return newSet;
     }
