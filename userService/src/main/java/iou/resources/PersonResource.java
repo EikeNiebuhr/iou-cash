@@ -5,6 +5,7 @@ import io.dropwizard.hibernate.UnitOfWork;
 import iou.db.DebtDAO;
 import iou.db.PersonDAO;
 import iou.models.Debt;
+import iou.models.Guest;
 import iou.models.Person;
 import iou.models.User;
 
@@ -27,23 +28,23 @@ public class PersonResource {
     }
     @GET
     @UnitOfWork
-    public String createPerson()
+    public String createData()
     {
-        Person p = new Person();
-        p.setFirstName("A");
-        p.setLastName("B");
+        Person p = new Guest();
+        p.setFirstName("Alfred");
+        p.setLastName("Biolek");
         personDao.createOrUpdate(p);
-        Person n = new Person();
+        Person n = new Guest();
         n.setFirstName("Max");
         n.setLastName("Muster");
         personDao.createOrUpdate(n);
-        Person l = new Person();
-        l.setFirstName("Alfred");
-        l.setLastName("Boy");
+        Person l = new Guest();
+        l.setFirstName("Alfredo");
+        l.setLastName("Boyeee");
         personDao.createOrUpdate(l);
         User u = new User();
-        u.setFirstName("User");
-        u.setLastName("Resu");
+        u.setFirstName("Argo");
+        u.setLastName("TheMachine");
         u.getFriends().add(p);
         u.getFriends().add(n);
         u.getFriends().add(l);
@@ -52,6 +53,8 @@ public class PersonResource {
         debtDao.createOrUpdate(d);
         Debt de = new Debt(p, u, 100);
         debtDao.createOrUpdate(de);
+        Debt deb = new Debt(n, u, 200);
+        debtDao.createOrUpdate(deb);
         return "WHOOP";
     }
 
