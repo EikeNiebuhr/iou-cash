@@ -34,6 +34,11 @@ public class PersonResource {
         p.setFirstName("Alfred");
         p.setLastName("Biolek");
         personDao.createOrUpdate(p);
+        User u = new User();
+        u.setFirstName("Argo");
+        u.setLastName("TheMachine");
+        u.getFriends().add(p);
+        personDao.createOrUpdate(u);
         Person n = new Guest();
         n.setFirstName("Max");
         n.setLastName("Muster");
@@ -42,19 +47,15 @@ public class PersonResource {
         l.setFirstName("Alfredo");
         l.setLastName("Boyeee");
         personDao.createOrUpdate(l);
-        User u = new User();
-        u.setFirstName("Argo");
-        u.setLastName("TheMachine");
-        u.getFriends().add(p);
-        u.getFriends().add(n);
-        u.getFriends().add(l);
-        personDao.createOrUpdate(u);
         Debt d = new Debt(u, p, 10);
         debtDao.createOrUpdate(d);
         Debt de = new Debt(p, u, 100);
         debtDao.createOrUpdate(de);
         Debt deb = new Debt(n, u, 200);
         debtDao.createOrUpdate(deb);
+        u.getFriends().add(n);
+        u.getFriends().add(l);
+        personDao.createOrUpdate(u);
         return "WHOOP";
     }
 
