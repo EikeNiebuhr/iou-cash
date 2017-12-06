@@ -27,7 +27,7 @@ public class Debt implements Serializable {
     @JoinColumn(name = "debitor_id", referencedColumnName = "id")
     private Person debitor;
     private double amount;
-    private Date date;
+    private Date date = new Date();
     private boolean isPayed = false;
 
     public Debt(Person creditor, Person debitor, double amount) {
@@ -35,7 +35,7 @@ public class Debt implements Serializable {
         this.creditor = creditor;
         this.debitor = debitor;
         this.amount = amount;
-        date = new Date(System.currentTimeMillis());
+        date = new Date();
     }
 
     public Debt()
