@@ -91,7 +91,7 @@
         <div class="control has-text-centered">
         </div>
           <div class="control">
-            <button id="send-money" @click.prevent="paybackMoney(creditor.id)" class="button is-danger is-outlined" aria-hidden="true">
+            <button id="send-money" @click.prevent="paybackMoney(creditor.id, creditor.amount, creditor.date)" class="button is-danger is-outlined" aria-hidden="true">
               <span><i class="fa fa-credit-card" aria-hidden="true"> Payback Debt</i></span>
             </button>
           </div>
@@ -103,6 +103,7 @@
 <section class="section">
   <div class="level">
     <p class="subtitle">The same amount in <i class="fa fa-btc" aria-hidden="true"></i> : {{ valueInBitcoin }}</p>
+    <p class="subtitle"></p>
   </div>
 </section>
 </div>
@@ -195,7 +196,7 @@ export default {
       type: 'success',
       message: this.credit + ' € send to friend ' + this.debitorFriend.name
     })
-    this.moneyInBitcoin(this.credit)
+    this.moneyInBitcoin(this.credit, null)
     console.log(response)
   })
   .catch(e => {
@@ -238,7 +239,7 @@ export default {
       type: 'success',
       message: this.debt + ' € send to friend ' + this.friend.name
     })
-    this.moneyInBitcoin(this.debt)
+    this.moneyInBitcoin(this.debt, null)
     console.log(response)
   })
   .catch(e => {
@@ -246,7 +247,7 @@ export default {
     console.log(e)
   })
     },
-    paybackMoney: function (id) {
+    paybackMoney: function (id, amount, dateOfDebt) {
       axios.delete('http://localhost:50012/debts/' + id, {
         headers: {
           'Content-Type': 'application/json',
@@ -255,28 +256,51 @@ export default {
         }
       }).then(response => {
         console.log(response)
+        this.moneyInBitcoin(amount, dateOfDebt)
         this.notifications.push({
           type: 'success',
-          message: 'Debt of ' + this.creditor.amount + ' € succesfully payed!'})
+          message: 'Debt of ' + amount + ' € succesfully payed!'})
         this.fetchFriendsAndDebts()
       }).catch(e => {
         this.notifications.push(e)
         console.log(e)
       })
     },
-    moneyInBitcoin: function (amount) {
-      var axiosInstance = axios.create({
+    moneyInBitcoin: function (amount, dateOfDebt) {
+      let axiosInstance = axios.create({
         baseURL: 'http://localhost:50002/',
-        timeout: 5000,
+        timeout: 30000,
         headers: {'Content-Type': 'application/json'}
       })
-      axiosInstance.get('/' + amount,
+      if (dateOfDebt === null) {
+        axiosInstance.get('/' + amount)
+    .then(response => {
+      this.debtInBitcoin = response.data
+      console.log(this.debtInBitcoin)
+      this.valueInBitcoin = this.debtInBitcoin.bitcoin.value
+    }).catch(e => {
+      this.notifications.push(e)
+      console.log(e)
+    })
+      } else {
+        var timeInSec = dateOfDebt / 1000
+        var valid = (new Date(dateOfDebt)).getTime() > 0
+        console.log((new Date(dateOfDebt)).getTime())
+        console.log(valid)
+        if (valid) {
+          axiosInstance.get('/' + timeInSec + '/' + amount,
       )
-  .then(response => {
-    this.debtInBitcoin = response.data
-    console.log(this.debtInBitcoin)
-    this.valueInBitcoin = this.debtInBitcoin.bitcoin.value
-  })
+    .then(response => {
+      this.debtInBitcoin = response.data
+      console.log(this.debtInBitcoin)
+      this.valueInBitcoin = this.debtInBitcoin.bitcoin.value
+      this.timeOfDebt = this.debtInBitcoin.bitcoin.time
+    }).catch(e => {
+      this.notifications.push(e)
+      console.log(e)
+    })
+        }
+      }
     }
   },
   components: {
@@ -285,7 +309,7 @@ export default {
   filters: {
     formatDate: function (value) {
       if (value) {
-        return moment(value).format('DD.MM.YYYY hh:mm')
+        return moment(value).format('DD.MM.YYYY HH:mm')
       }
     }
   },
