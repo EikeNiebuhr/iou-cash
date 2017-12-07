@@ -1,6 +1,8 @@
 package iou.db;
 
 import java.util.List;
+
+import iou.models.User;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 
@@ -17,7 +19,6 @@ public class PersonDAO extends AbstractDAO<Person> {
         super(sessionFactory);
     }
 
-    @UnitOfWork
     public void createOrUpdate(Person person) throws HibernateException  {
     	persist(person);
     }
@@ -29,14 +30,18 @@ public class PersonDAO extends AbstractDAO<Person> {
     public Person find(Person person) {
     	return currentSession().find(Person.class, person);
     }
-    
-	@SuppressWarnings("unchecked")
-	@UnitOfWork
+
 	public List<Person> findAll()
     {
     	return currentSession().getNamedQuery("Person.findAll").getResultList();
     }
-	
+
+    public List<User> findAllUsers()
+    {
+        return currentSession().getNamedQuery("User.findAll").getResultList();
+    }
+
+
     public Person find(int person_id) {
         return get(person_id);
     }

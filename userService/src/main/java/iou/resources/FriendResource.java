@@ -1,26 +1,18 @@
 package iou.resources;
 
-import java.net.URI;
 import java.util.Set;
-
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.PATCH;
-import iou.api.FriendResponse;
-import iou.api.FriendService;
-import iou.api.PersonResponse;
-import iou.api.UserService;
+import iou.api.response.FriendResponse;
+import iou.api.service.FriendService;
+import iou.api.service.UserService;
 import iou.models.Person;
-import org.glassfish.jersey.server.Uri;
 
 @Path("/friends")
 @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
-//@Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
 public class FriendResource {
 
     private final FriendService friendService;

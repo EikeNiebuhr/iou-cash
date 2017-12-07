@@ -2,9 +2,9 @@ package iou.resources;
 
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.PATCH;
-import iou.api.DebtResponse;
-import iou.api.DebtService;
-import iou.api.UserService;
+import iou.api.response.DebtResponse;
+import iou.api.service.DebtService;
+import iou.api.service.UserService;
 import iou.models.Debt;
 
 import javax.inject.Inject;

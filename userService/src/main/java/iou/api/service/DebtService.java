@@ -1,5 +1,6 @@
-package iou.api;
+package iou.api.service;
 
+import iou.api.response.DebtResponse;
 import iou.db.DebtDAO;
 import iou.db.PersonDAO;
 import iou.models.Debt;

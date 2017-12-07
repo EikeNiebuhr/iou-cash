@@ -6,19 +6,16 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import iou.api.DebtService;
-import iou.api.FriendService;
-import iou.api.UserService;
+import iou.api.service.DebtService;
+import iou.api.service.FriendService;
+import iou.api.service.UserService;
 import iou.db.DebtDAO;
 import iou.db.PersonDAO;
 import iou.models.Debt;
 import iou.models.Guest;
 import iou.models.Person;
 import iou.models.User;
-import iou.resources.AssetResource;
-import iou.resources.DebtResource;
-import iou.resources.PersonResource;
-import iou.resources.FriendResource;
+import iou.resources.*;
 
 public class UserServiceApplication extends Application<UserServiceConfiguration> {
 
@@ -53,8 +50,9 @@ public class UserServiceApplication extends Application<UserServiceConfiguration
 		final UserService userService = new UserService(personDAO, debtDAO);
 		final FriendService friendService = new FriendService(personDAO, debtDAO);
 		final DebtService debtService = new DebtService(debtDAO, personDAO);
-        environment.jersey().register(new PersonResource(personDAO, debtDAO));
+        environment.jersey().register(new SystemResource(personDAO, debtDAO));
         environment.jersey().register(new FriendResource(userService, friendService));
+        environment.jersey().register(new UserResource(userService));
         environment.jersey().register(new DebtResource(userService, debtService));
         environment.jersey().register(new AssetResource(userService, debtService));
 	}

@@ -54,7 +54,7 @@ public class Person implements Serializable
 	protected String street;
 	protected Integer postcode;
 	protected String location;
-	
+
 	public Person()
 	{
 		
@@ -141,19 +141,17 @@ public class Person implements Serializable
 	{
 		this.location = location;
 	}
-	
+
 	public Set<Person> getFriends()
 	{
 		return friends;
 	}
 
-	
 	public Set<Debt> getDebts()
 	{
 		return debts;
 	}
 
-	
 	public Set<Debt> getAssets()
 	{
 		return assets;
