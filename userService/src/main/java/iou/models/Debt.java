@@ -29,6 +29,7 @@ public class Debt implements Serializable {
     private double amount;
     private Date date = new Date();
     private boolean isPayed = false;
+    private String notice;
 
     public Debt(Person creditor, Person debitor, double amount) {
         assert creditor != null && debitor != null && amount > 0;
@@ -84,5 +85,13 @@ public class Debt implements Serializable {
 
     public int getId() {
         return id;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
 }
