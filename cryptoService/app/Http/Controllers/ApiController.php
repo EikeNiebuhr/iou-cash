@@ -36,7 +36,7 @@ class ApiController extends Controller
     }
   }
 
-  public function convertByDate( $timestamp, $amount )
+  public function convertByTimestamp( $timestamp, $amount )
   {
     try {
       $date = new \DateTime();
@@ -44,6 +44,13 @@ class ApiController extends Controller
         $date->setTimestamp( $timestamp );
       } catch( \Exception $e ) {
         return $this->response->errorWrongArgs( 'first parameter should be numeric' );
+      }
+      if( !is_numeric( $amount ) ) {
+        return $this->response->errorWrongArgs( 'second parameter should be numeric' );
+      }
+      
+      if( $date->format( 'Y-m-d' ) === date( 'Y-m-d' ) ) {
+        return $this->convert( $amount );
       }
       try {
         $bpi = file_get_contents( "https://api.coindesk.com/v1/bpi/historical/close.json?start={$date->format('Y-m-d')}&end={$date->format('Y-m-d')}&currency=EUR" );
