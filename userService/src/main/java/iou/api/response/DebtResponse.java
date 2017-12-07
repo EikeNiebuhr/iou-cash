@@ -12,6 +12,7 @@ public class DebtResponse {
     public double amount;
     public Date date;
     public boolean isPayed = false;
+    public String notice;
 
     public DebtResponse()
     {
@@ -25,6 +26,7 @@ public class DebtResponse {
         this.amount = debt.getAmount();
         this.date = debt.getDate();
         this.isPayed = debt.isPayed();
+        this.notice = debt.getNotice();
     }
 }
 
