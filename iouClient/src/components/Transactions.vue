@@ -9,7 +9,7 @@
   <div class="level">
     <div class="level-left">
       <div class="field">
-          <h1 class="title" v-bind:value="debitorFriend.id">Lend money to {{ debitorFriend.name }}</h1>
+          <h1 class="title" v-bind:value="debitorFriend.id">Lend money to </h1>
       </div>
     </div>
     <div class="level-right">
@@ -27,6 +27,10 @@
             <input class="input is-success" type="text" placeholder="Enter amount" id="credit" v-model="credit" required>
             <span class="icon is-small is-right"><i class="fa fa-eur"></i></span>
           </div>
+          <div class="control has-icons-right">
+            <input class="input is-success" type="text" placeholder="Notice" id="credit" v-model="notice" required>
+            <span class="icon is-small is-right"><i class="fa fa-commenting"></i></span>
+          </div>          
           <div class="control">
             <button id="lend-money" @click.prevent="lendMoney" class="button is-info is-outlined" aria-hidden="true">
               <span><i class="fa fa-credit-card" aria-hidden="true"> Send Money</i></span>
@@ -75,7 +79,8 @@
   <div class="level">
     <div class="level-left">
            <div class="field">
-          <p><div class="title has-text-left">Pay back {{ creditor.name }}</div><div class="subtitle">Details: {{ creditor.amount }} € from {{ creditor.date | formatDate }} </div></p>
+          <p><div class="title has-text-left">Pay back {{ creditor.name }}</div>
+          <div class="subtitle">Details: {{creditor.notice }} {{ creditor.amount }} € from {{ creditor.date | formatDate }}</div></p>
         </div>
     </div>
     <div class="level-right">
@@ -127,6 +132,7 @@ export default {
       valueInBitcoin: '',
       timeOfDebt: '',
       credit: '',
+      notice: '',
       creditor: '2'
     }
   },
@@ -184,7 +190,8 @@ export default {
         'creditor': {
           'id': '2'
         },
-        'amount': this.credit
+        'amount': this.credit,
+        'notice': this.notice
       },
         {
           headers: {

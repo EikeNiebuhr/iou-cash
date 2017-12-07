@@ -2,6 +2,7 @@
 <div id="Overview">
   <section class="hero">
     <h1 class="title">Overview</h1>
+      <p class="subtitle has-text-right">My total assets are {{ totalAssets }} € and my total debts are {{ totalDebts }} €</p>
       <notification v-bind:notifications="notifications"></notification>
   </section>
   <section class="section">
@@ -11,8 +12,8 @@
           <article class="tile is-child box" v-for="friend in sortedFriends" :key="friend.id">
             <button class="delete is-pulled-right" aria-label="close" @click.prevent="deleteFriend(friend.id)"></button>
             <p class="title">{{ friend.name }}</p>
-            <p class="positive">{{ friend.totalAsset }} €</p>
-            <p class="negative">{{ friend.totalDebt }} €</p>
+            <p class="positive">{{ friend.totalDebt }} €</p>
+            <p class="negative">{{ friend.totalAsset }} €</p>
           </article>
             </div>
       </div>
@@ -35,11 +36,15 @@ export default {
   data () {
     return {
       friend: {},
-      notifications: []
+      notifications: [],
+      totalDebts: '',
+      totalAssets: ''
     }
   },
   created: function () {
     this.fetchFriendsData()
+    this.fetchTotalDebts()
+    this.fetchTotalAssets()
   },
   computed: {
     chunkedFriends () {
@@ -47,6 +52,38 @@ export default {
     }
   },
   methods: {
+    fetchTotalDebts: function () {
+      axios.get('http://localhost:50012/debts/total', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+      }).then(
+        response => {
+          this.totalDebts = response.data
+          console.log(response)
+        }).catch(e => {
+          this.notifications.push(e)
+          console.log(e)
+        })
+    },
+    fetchTotalAssets: function () {
+      axios.get('http://localhost:50012/assets/total', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+      }).then(
+        response => {
+          this.totalAssets = response.data
+          console.log(response)
+        }).catch(e => {
+          this.notifications.push(e)
+          console.log(e)
+        })
+    },
     fetchFriendsData: function () {
       axios.get('http://localhost:50012/friends/', {
         headers: {

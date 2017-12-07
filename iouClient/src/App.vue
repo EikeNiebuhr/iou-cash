@@ -17,20 +17,14 @@
 <script>
 import navbar from './components/NavBar'
 import sidebar from './components/SideBar'
-import overview from './components/Overview'
-import transactions from './components/Transactions'
 import about from './components/About'
-import notification from './components/Notifications'
 import footerbar from './components/FooterBar'
 
 export default {
   components: {
     navbar,
     sidebar,
-    overview,
-    transactions,
     about,
-    notification,
     footerbar
   },
   name: 'app'

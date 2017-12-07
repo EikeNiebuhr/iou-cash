@@ -6,6 +6,7 @@
         <img src="../assets/logo.png" alt="IOU-Cash: a quick money transfer app">
       </a>
     </div>
+      <p class="has-text-weight-semibold">Hallo, Argo!</p>
     <div class="level-item">
       <h1 id="main-title" class="has-text-weight-semibold">IOU CASH</h1>
     </div>
